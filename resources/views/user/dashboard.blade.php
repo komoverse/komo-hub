@@ -191,7 +191,8 @@
         <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <input type="file" name="profile_picture" class="form-control">
+        Please upload square image 1:1 ratio. Otherwise, your image will be stretched. <br>Support jpg, jpeg, png, bmp
+        <input type="file" accept="image/png, image/jpg, image/jpeg, image/bmp" name="profile_picture" class="form-control">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>

@@ -534,15 +534,11 @@ class PageController extends Controller
             if (in_array(strtolower($file->getClientOriginalExtension()), $images_ext)) {
                 $img = Image::make($file)
                             ->encode('jpeg', 80)
-                            ->resize(500, null, function ($constraint) {
-                                $constraint->aspectRatio();
-                            })
+                            ->resize(500, 500)
                             ->save($path.'/'.$file_name.'.jpg');
                 $thumbs = Image::make($file)
                             ->encode('jpeg', 60)
-                            ->resize(null, 100, function ($constraint) {
-                                $constraint->aspectRatio();
-                            })
+                            ->resize(100, 100)
                             ->save($path.'/thumbs/'.$file_name.'.jpg');
 
                 $file_url = url('/').$relativepath.'/'.$file_name.'.jpg';
