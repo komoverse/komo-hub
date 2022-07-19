@@ -550,6 +550,7 @@ class PageController extends Controller
                 $data = [
                     'api_key' => $this->komo_api_key,
                     'komo_username' => Session::get('userdata')->komo_username,
+                    'playfab_id' => Session::get('userdata')->playfab_id,
                     'profile_picture_url' => $file_url,
                 ];
                 $url = $this->komo_endpoint.'/v1/change-pp';

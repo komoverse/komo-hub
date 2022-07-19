@@ -30,7 +30,7 @@
     </div>
     <div class="col-12 col-md-7">
         <div class="bg-main p-3">
-            <h2>Komoverse Auto-Chess Match History</h2>
+            <h2>Komoverse Auto-Chess Match History (dummy)</h2>
             <hr>
             <div class="history-wrapper history-p1">
                 <div class="row">
