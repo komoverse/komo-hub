@@ -40,23 +40,23 @@
                     <div class="col-7">
                         <span class="lineup">LINEUP</span>
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/wolverine.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/kuli.webp') }}" alt="" class="heroes-icon">
                             <img src="{{ url('assets/img/3-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/ironman.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/banshee.webp') }}" alt="" class="heroes-icon">
                             <img src="{{ url('assets/img/3-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/thor.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/raven.webp') }}" alt="" class="heroes-icon">
                             <img src="{{ url('assets/img/2-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/hawkeye.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/shi_wudu.webp') }}" alt="" class="heroes-icon">
                             <img src="{{ url('assets/img/2-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/hulk.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/baby_dragon.webp') }}" alt="" class="heroes-icon">
                             <img src="{{ url('assets/img/2-star.png') }}" class="star">
                         </div>
                     </div>
@@ -78,19 +78,19 @@
                         <span class="lineup">LINEUP</span>
 
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/widow.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/lucifer.webp') }}" alt="" class="heroes-icon"> 
                             <img src="{{ url('assets/img/3-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/capt.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/kunoichi.webp') }}" alt="" class="heroes-icon"> 
                             <img src="{{ url('assets/img/2-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/deadpool.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/rasputin.webp') }}" alt="" class="heroes-icon"> 
                             <img src="{{ url('assets/img/1-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/thor.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/raphael.webp') }}" alt="" class="heroes-icon"> 
                             <img src="{{ url('assets/img/1-star.png') }}" class="star">
                         </div>
                     </div>
@@ -112,15 +112,15 @@
                         <span class="lineup">LINEUP</span>
 
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/daredevil.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/butcher.webp') }}" alt="" class="heroes-icon"> 
                             <img src="{{ url('assets/img/2-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/fury.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/venom.webp') }}" alt="" class="heroes-icon"> 
                             <img src="{{ url('assets/img/2-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/spiderman.png') }}" alt="">
+                            <img src="{{ url('assets/img/heroes-icon/azrael.webp') }}" alt="" class="heroes-icon"> 
                             <img src="{{ url('assets/img/1-star.png') }}" class="star">
                         </div>
                     </div>

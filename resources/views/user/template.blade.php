@@ -119,6 +119,10 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
                 border-color: limegreen;
                 color: limegreen;
             }
+            .heroes-icon {
+                border-radius: 50%;
+                border: 2px solid orangered;
+            }
         </style>
     </head>
     <body class="text-light">
