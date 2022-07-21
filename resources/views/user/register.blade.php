@@ -324,10 +324,9 @@
     // var valid[1] = false;
     // var valid[2] = true;
     // var valid[3] = false;
-    $('input[name=komo_username]').on('change paste keyup', function(){
+    $('input[name=komo_username]').on('change paste keyup focusout', function(){
         var username = $(this).val();
         var csrf = $('input[name=_token]').val();
-        console.log(username);
         if (username != '') {
             $.ajax({
                 url: "{{ url('validate/check-username') }}",
@@ -357,7 +356,7 @@
         }
     });
 
-    $('input[name=email]').on('change paste keyup', function(){
+    $('input[name=email]').on('change paste keyup focusout', function(){
         var email = $(this).val();
         var csrf = $('input[name=_token]').val();
         console.log(email);
@@ -390,7 +389,7 @@
         }
     });
 
-    $('input[name=wallet_pubkey]').on('change paste keyup', function(){
+    $('input[name=wallet_pubkey]').on('change paste keyup focusout', function(){
         var wallet_pubkey = $(this).val();
         var csrf = $('input[name=_token]').val();
         console.log(wallet_pubkey);
@@ -440,7 +439,7 @@
         }
     }
 
-    $('input[type=password]').on('change paste keyup', function(){
+    $('input[type=password]').on('change paste keyup focusout', function(){
         revalidatePassword();
     });
 
