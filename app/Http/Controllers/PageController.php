@@ -645,4 +645,15 @@ class PageController extends Controller
             return redirect('login')->with('error', 'Failed to Change Password.');
         }
     }
+
+    function changeGameNotification(Request $req) {
+        $data = [
+            'api_key' => $this->komo_api_key,
+            'komo_username' => Session::get('userdata')->komo_username,
+            'game_newsletter_subscribe' => $req->switch_num,
+        ];
+        $url = $this->komo_endpoint.'/v1/change-game-notif';
+        $userdata = $this->callAPI($url, null, $data);
+        echo json_encode($userdata);
+    }
 }

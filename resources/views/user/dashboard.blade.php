@@ -26,6 +26,17 @@
                 <img src="{{ (Session::get('userdata')->profile_picture_url) ? Session::get('userdata')->profile_picture_url : url('assets/img/nopic.webp') }}" style="width: 100px" alt="">
                 <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#ppChangeModal"><i class="fas fa-image"></i> Change Profile Picture</button>
             </div>
+
+
+                <br>
+                Email: <b>
+                {{ Session::get('userdata')->email }}
+                </b>
+                <br>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="switchNotification" {{ (Session::get('userdata')->game_newsletter_subscribe == 1) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="switchNotification">Send Game Update Notification via Email</label>
+                </div>
         </div>
     </div>
     <div class="col-12 col-md-7">
@@ -220,6 +231,30 @@
         .always(function(result) {
             console.log(result);
             if (result == 'ok') {
+                window.location.reload();
+            }
+        });
+    });
+
+    $("#switchNotification").on('click', function() {
+        var switch_value = $("#switchNotification").is(':checked');
+        var switch_num = 0;
+        if (switch_value) {
+            switch_num = 1;
+        }
+
+        $.ajax({
+            url: '{{ url('change-game-notif') }}',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                switch_num: switch_num,
+                _token: "{{ csrf_token() }}",
+            },
+        })
+        .always(function(result) {
+            console.log(result);
+            if (result.status == 'success') {
                 window.location.reload();
             }
         });
