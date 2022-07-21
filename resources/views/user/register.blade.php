@@ -7,6 +7,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/b71ce7388c.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <style>
             .red {
                 color: red;
@@ -20,7 +21,7 @@
         <div class="container">
             <div class="row my-5">
                 <div class="col"></div>
-                <div class="col-12 col-md-4 my-5 bg-dark text-light p-5">
+                <div class="col-12 col-md-5 my-5 bg-dark text-light p-5">
                     <div class="text-center">
                         <img src="{{ url('assets/img/logo.png') }}" alt="">
                     </div>
@@ -312,6 +313,21 @@
                         <i id="wallet-exists" class="form-validation red" style="display: none">Wallet already used<br></i>
                         <i id="wallet-available" class="form-validation green" style="display: none">Wallet available<br></i>
 
+                        <div class="g-recaptcha mt-2" data-sitekey="{{ $g_recaptcha_site_key }}"></div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="terms">
+                            <label class="form-check-label" for="terms">
+                                I agree to <a href="https://komoverse.io/privacy-policy" target="_blank">Privacy Policy</a> and <a href="https://komoverse.io/terms-of-use" target="_blank">Terms of Use</a>
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="subscribe">
+                            <label class="form-check-label" for="subscribe">
+                                Subscribe to Game Patch and Announcement Mailing List
+                            </label>
+                        </div>
                         <button id="submitButton" class="btn form-control btn-success mt-2"><i class="fas fa-save"></i> &nbsp; Register</button>
                     </form>
                 </div>

@@ -441,24 +441,44 @@ class PageController extends Controller
     }
 
     function showRegisterPage() {
-        return view('user.register');
+        $data = [
+            'g_recaptcha_site_key' => config('api_key.g_recaptcha_site_key'),
+        ];
+        return view('user.register')->with($data);
     }
 
     function submitRegistration(Request $req) {
-        $data = [
-            'api_key' => $this->komo_api_key,
-            'komo_username' => $req->komo_username,
-            'password' => $req->password,
-            'email' => $req->email,
-            'wallet_pubkey' => $req->wallet_pubkey,
-            'country' => $req->country,
-        ];
-        $url = $this->komo_endpoint.'/v1/register';
-        $response = $this->callAPI($url, null, $data);
-        if ($response->status == 'success') {
-            return redirect('login')->with('success', $response->message);
+        $post_data = "secret=".config('api_key.g_recaptcha_secret_key')."&response=".$req->get('g-recaptcha-response')."&remoteip=".$_SERVER['REMOTE_ADDR'] ;
+
+        $ch = curl_init(); 
+        curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded; charset=utf-8', 'Content-Length: ' . strlen($post_data)));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+        $googresp = curl_exec($ch);      
+        $decgoogresp = json_decode($googresp);
+        curl_close($ch);
+
+        if ($decgoogresp->success == true) {
+
+            $data = [
+                'api_key' => $this->komo_api_key,
+                'komo_username' => $req->komo_username,
+                'password' => $req->password,
+                'email' => $req->email,
+                'wallet_pubkey' => $req->wallet_pubkey,
+                'country' => $req->country,
+            ];
+            $url = $this->komo_endpoint.'/v1/register';
+            $response = $this->callAPI($url, null, $data);
+            if ($response->status == 'success') {
+                return redirect('login')->with('success', $response->message);
+            } else {
+                return redirect()->back()->with('error', $response->message);
+            }
         } else {
-            return redirect()->back()->with('error', $response->message);
+            return redirect()->back()->with('error', 'Captcha Verification Failed: '.$decgoogresp->{'error-codes'}[0]);
         }
     }
 
