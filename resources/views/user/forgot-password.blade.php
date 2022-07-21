@@ -17,20 +17,14 @@
             {{ session('success') }}
             </div>
             @endif
-            <form action="{{ url('login') }}" method="POST">
+            <form action="{{ url('forgot-password') }}" method="POST">
                 @csrf
-                Username
-                <input type="text" name="username" class="form-control my-1">
-                Password
-                <input type="password" name="password" class="form-control mt-1 mb-2">
-                <button class="btn form-control btn-success"><i class="fas fa-sign-in-alt"></i> &nbsp; Login</button>
+                Username or email or wallet
+                <input type="text" name="find_query" class="form-control my-1">
+                <button class="btn form-control btn-success"><i class="fas fa-search"></i> &nbsp; Forgot Password</button>
             </form>
-            <center>
-            - or -
-            </center>
-            <a href="{{ url('register') }}" class="btn form-control btn-outline-success"><i class="fas fa-edit"></i> &nbsp; Register</a>
             <br>
-            <a href="{{ url('forgot-password') }}">Lost your password?</a>
+            <a href="{{ url('login') }}">Return to login</a>
         </div>
         <div class="col"></div>
     </div>

@@ -581,4 +581,68 @@ class PageController extends Controller
             return redirect()->back()->with('error', 'File invalid');
         }
     }
+
+    function showForgotPasswordForm() {
+        return view('user.forgot-password');
+    }
+
+    function submitForgotPasswordRequest(Request $req) {
+        $data = [
+            'api_key' => $this->komo_api_key,
+            'find_query' => $req->find_query,
+        ];
+        $url = $this->komo_endpoint.'/v1/account-info/find';
+        $userdata = $this->callAPI($url, null, $data);
+        $email = $userdata->email;
+        $beforeat = explode('@', $email)[0];
+        $afterat = explode('@', $email)[1];
+        $len = strlen($beforeat);
+        $dots = '';
+        for ($i=3; $i < $len; $i++) { 
+            $dots = $dots.'*';
+        }
+        $censormail = substr($beforeat, 0, 2).$dots.substr($beforeat, ($len - 1), 1).'@'.$afterat;
+        $data = [
+            'censormail' => $censormail,
+        ];
+
+        $mail_data = [
+            'komo_username' => $userdata->komo_username,
+            'hash' => $userdata->password,
+        ];
+
+        if (\Mail::send('email.reset-password', $mail_data, function ($message) use ($userdata) {
+                $message->from('developer@komoverse.io', 'Komoverse');
+                $message->to($userdata->email);
+                $message->subject('Reset Your Password - Komoverse');
+            })) {
+            return view('user.forgot-password-2')->with($data);
+        } else {
+            echo "error";
+        }
+        
+    }
+
+    function showNewPasswordForm(Request $req) {
+        $data = [
+            'hash' => $req->hash,
+        ];
+        return view('user.new-password')->with($data);
+    }
+
+    function submitNewPassword(Request $req) {
+        $data = [
+            'api_key' => $this->komo_api_key,
+            'hash' => $req->hash,
+            'new_password' => $req->new_password,
+        ];
+        $url = $this->komo_endpoint.'/v1/reset-password';
+        $userdata = $this->callAPI($url, null, $data);
+
+        if ($userdata->status == 'success') {
+            return redirect('login')->with('success', 'Password Successfully Changed.');
+        } else {
+            return redirect('login')->with('error', 'Failed to Change Password.');
+        }
+    }
 }

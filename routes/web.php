@@ -46,3 +46,8 @@ Route::post('change-display-name', [PageController::class, 'changeDisplayName'])
 Route::post('validate/check-username', [PageController::class, 'registerCheckUsername']);
 Route::post('validate/check-email', [PageController::class, 'registerCheckEmail']);
 Route::post('validate/check-wallet', [PageController::class, 'registerCheckWallet']);
+
+Route::get('forgot-password', [PageController::class, 'showForgotPasswordForm']);
+Route::post('forgot-password', [PageController::class, 'submitForgotPasswordRequest']);
+Route::get('reset-password/{hash}', [PageController::class, 'showNewPasswordForm']);
+Route::post('reset-password', [PageController::class, 'submitNewPassword']);
