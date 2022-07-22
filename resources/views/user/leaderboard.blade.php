@@ -51,13 +51,13 @@
                     <td>{{ $row->exp }}</td>
                     <td>{{ $row->total_match }}</td>
                     <td>{{ $row->placement_1 }}</td>
-                    <td>{{ $row->placement_1 }}</td>
-                    <td>{{ $row->placement_1 }}</td>
-                    <td>{{ $row->placement_1 }}</td>
-                    <td>{{ $row->placement_1 }}</td>
-                    <td>{{ $row->placement_1 }}</td>
-                    <td>{{ $row->placement_1 }}</td>
-                    <td>{{ $row->placement_1 }}</td>
+                    <td>{{ $row->placement_2 }}</td>
+                    <td>{{ $row->placement_3 }}</td>
+                    <td>{{ $row->placement_4 }}</td>
+                    <td>{{ $row->placement_5 }}</td>
+                    <td>{{ $row->placement_6 }}</td>
+                    <td>{{ $row->placement_7 }}</td>
+                    <td>{{ $row->placement_8 }}</td>
                     </tr>
                     @endforeach
                     @endif
