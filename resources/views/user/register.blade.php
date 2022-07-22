@@ -16,13 +16,16 @@
             <form action="{{ url('register') }}" method="POST">
                 @csrf
                 Username <span class="red">*</span>
+                <i style="font-size: 9px; display: block">6-30 characters. Accept only alphanumeric, dot (.), underscore (_)</i>
                 <input type="text" name="komo_username" required="required" class="form-control my-1">
+                <i id="username-invalid" class="form-validation red" style="display: none">Username is not in valid format<br></i>
                 <i id="username-exists" class="form-validation red" style="display: none">Username already exist<br></i>
                 <i id="username-available" class="form-validation green" style="display: none">Username available<br></i>
 
                 Email <span class="red">*</span>
                 <input type="email" name="email" required="required" class="form-control my-1">
                 <i id="email-exists" class="form-validation red" style="display: none">Email already used<br></i>
+                <i id="email-invalid" class="form-validation red" style="display: none">Email is not in valid format<br></i>
                 <i id="email-available" class="form-validation green" style="display: none">Email available<br></i>
 
                 Password <span class="red">*</span>
@@ -328,27 +331,35 @@
         var username = $(this).val();
         var csrf = $('input[name=_token]').val();
         if (username != '') {
-            $.ajax({
-                url: "{{ url('validate/check-username') }}",
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    komo_username: username,
-                    _token: csrf,
-                },
-            })
-            .always(function(result) {
-                console.log(result);
-                if (result.message == 'Username Exists') {
-                    $("#username-available").hide();
-                    $("#username-exists").show();
-                    valid[0] = false;
-                } else {
-                    $("#username-available").show();
-                    $("#username-exists").hide();
-                    valid[0] = true;
-                }
-            });
+            if (validateUsername(username)){
+                $("#username-invalid").hide();
+                $.ajax({
+                    url: "{{ url('validate/check-username') }}",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        komo_username: username,
+                        _token: csrf,
+                    },
+                })
+                .always(function(result) {
+                    console.log(result);
+                    if (result.message == 'Username Exists') {
+                        $("#username-available").hide();
+                        $("#username-exists").show();
+                        valid[0] = false;
+                    } else {
+                        $("#username-available").show();
+                        $("#username-exists").hide();
+                        valid[0] = true;
+                    }
+                });
+            } else {
+                valid[0] = false;
+                $("#username-available").hide();
+                $("#username-exists").hide();
+                $("#username-invalid").show();
+            }
         } else {
             $("#username-available").hide();
             $("#username-exists").hide();
@@ -361,31 +372,39 @@
         var csrf = $('input[name=_token]').val();
         console.log(email);
         if (email != ''){
-            $.ajax({
-                url: "{{ url('validate/check-email') }}",
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    email: email,
-                    _token: csrf,
-                },
-            })
-            .always(function(result) {
-                console.log(result);
-                if (result.message == 'Email Exists') {
-                    $("#email-available").hide();
-                    $("#email-exists").show();
-                    valid[1] = false;
-                } else {
-                    $("#email-available").show();
-                    $("#email-exists").hide();
-                    valid[1] = true;
-                }
-            });
+            if (validateEmail(email)) {
+                $("#email-invalid").hide();
+                $.ajax({
+                    url: "{{ url('validate/check-email') }}",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        email: email,
+                        _token: csrf,
+                    },
+                })
+                .always(function(result) {
+                    console.log(result);
+                    if (result.message == 'Email Exists') {
+                        $("#email-available").hide();
+                        $("#email-exists").show();
+                        valid[1] = false;
+                    } else {
+                        $("#email-available").show();
+                        $("#email-exists").hide();
+                        valid[1] = true;
+                    }
+                });
+            } else {
+                $("#email-invalid").show();
+                $("#email-available").hide();
+                $("#email-exists").hide();
+                valid[1] = false;
+            }
         } else {
             $("#email-available").hide();
             $("#email-exists").hide();
-            valid[0] = false;
+            valid[1] = false;
         }
     });
 
@@ -458,5 +477,15 @@
             alert('Some input are not valid');
         }
     });
+
+    function validateEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+
+    function validateUsername(username) {
+        var regex = /^(?=.{6,30}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+        return regex.test(username);
+    }
 </script>
 @endsection

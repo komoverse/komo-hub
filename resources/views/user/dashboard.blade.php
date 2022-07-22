@@ -180,11 +180,12 @@
         <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <input maxlength="50" type="text" name="game-display-name" value="{{ Session::get('userdata')->in_game_display_name }}" class="form-control">
+        6-30 character
+        <input maxlength="30" minlength="6" type="text" name="game-display-name" value="{{ Session::get('userdata')->in_game_display_name }}" class="form-control">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>
-        <button type="button" id="submitDisplayName" class="btn btn-success"><i class="fas fa-check"></i> Save</button>
+        <button disabled="disabled" type="button" id="submitDisplayName" class="btn btn-success"><i class="fas fa-check"></i> Save</button>
       </div>
     </div>
   </div>
@@ -217,23 +218,38 @@
 
 @section('script')
 <script>
+    $('input[name=game-display-name]').on('change paste keyup focusout', function(){
+
+        var display_name = $("input[name=game-display-name]").val();
+        if (validateUsername(display_name)) {
+            console.log('valid');
+            $('#submitDisplayName').removeAttr('disabled');
+        } else {
+            $('#submitDisplayName').attr('disabled','disabled');
+            console.log('invalid');
+        }
+    });
     $("#submitDisplayName").on('click', function() {
         var display_name = $("input[name=game-display-name]").val();
-        $.ajax({
-            url: '{{ url('change-display-name') }}',
-            type: 'POST',
-            dataType: 'text',
-            data: {
-                display_name: display_name,
-                _token: "{{ csrf_token() }}",
-            },
-        })
-        .always(function(result) {
-            console.log(result);
-            if (result == 'ok') {
-                window.location.reload();
-            }
-        });
+        if (validateUsername(display_name)) {
+            $.ajax({
+                url: '{{ url('change-display-name') }}',
+                type: 'POST',
+                dataType: 'text',
+                data: {
+                    display_name: display_name,
+                    _token: "{{ csrf_token() }}",
+                },
+            })
+            .always(function(result) {
+                console.log(result);
+                if (result == 'ok') {
+                    window.location.reload();
+                }
+            });
+        } else {
+            console.log("invalid");
+        }
     });
 
     $("#switchNotification").on('click', function() {
@@ -259,5 +275,10 @@
             }
         });
     });
+
+    function validateUsername(username) {
+        var regex = /^[a-zA-Z0-9.@?#()*\+\/;\-=[\\\]\^_{|}<> ]{6,30}$/;
+        return regex.test(username);
+    }
 </script>
 @endsection
