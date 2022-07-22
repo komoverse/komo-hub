@@ -656,4 +656,57 @@ class PageController extends Controller
         $userdata = $this->callAPI($url, null, $data);
         echo json_encode($userdata);
     }
+
+    function showLeaderboard(Request $req) {
+        if (!isset($req->type)) {
+            return redirect('leaderboard/daily');
+        }
+        switch ($req->type) {
+            case 'lifetime':
+                $parameter = '';
+                break;
+
+            case 'monthly':
+                if (isset($req->param)) {
+                    $parameter = $req->param;
+                } else {
+                    $parameter = date('Y-m');
+                }
+                break;
+
+            case 'weekly':
+                if (isset($req->param)) {
+                    $parameter = str_replace('W', '', $req->param);
+                } else {
+                    $parameter = date('Y-W');
+                }
+                break;
+
+            case 'daily':
+                if (isset($req->param)) {
+                    $parameter = $req->param;
+                } else {
+                    $parameter = date('Y-m-d');
+                }
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+        $data = [
+            'type' => $req->type,
+            'parameter' => $parameter,
+        ];
+
+        $url = $this->komo_endpoint.'/v1/leaderboard/get';
+        $response = $this->callAPI($url, null, $data);
+        $resp = [
+            'type' => ucfirst($req->type),
+            'parameter' => $parameter,
+            'lb_data' => $response,
+        ];
+        return view('user.leaderboard')->with($resp);
+    }
 }

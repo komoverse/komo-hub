@@ -30,6 +30,7 @@
 
                 Password <span class="red">*</span>
                 <input type="password" name="password" required="required" class="form-control my-1">
+                <i id="pass-min-char" class="form-validation red" style="display: none">Minimum 6 character<br></i>
 
                 Confirm Password <span class="red">*</span>
                 <input type="password" name="confirm_password" required="required" class="form-control my-1">
@@ -444,7 +445,8 @@
     function revalidatePassword() {
         var pass1 = $('input[name=password]').val();
         var pass2 = $('input[name=confirm_password]').val();
-        if (pass1 != '') {
+        if (pass1.length >= 6) {
+            $('#pass-min-char').hide();
             if (pass1 === pass2) {
                 $("#pass-mismatch").hide();
                 valid[3] = true;
@@ -453,6 +455,7 @@
                 valid[3] = false;
             }
         } else {
+            $('#pass-min-char').show();
             $("#pass-mismatch").hide();
             valid[3] = false;
         }
@@ -464,17 +467,21 @@
 
     $('#submitButton').on('click', function(e){
         e.preventDefault();
-        var allvalid = true;
-        $.each(valid, function(index, val) {
-             if (val == false) {
-                allvalid = false;
-             }
-             console.log(index+' '+val);
-        });
-        if (allvalid == true) {
-            $('form').submit();
+        if ($('#terms').is(':checked')) {
+            var allvalid = true;
+            $.each(valid, function(index, val) {
+                 if (val == false) {
+                    allvalid = false;
+                 }
+                 console.log(index+' '+val);
+            });
+            if (allvalid == true) {
+                $('form').submit();
+            } else {
+                alert('Some input are not valid');
+            }
         } else {
-            alert('Some input are not valid');
+            alert('You need to agree to our Privacy Policy and Terms of Use before register');
         }
     });
 

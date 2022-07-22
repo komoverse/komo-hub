@@ -8,6 +8,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/b71ce7388c.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
         <style>
             body {
                 background-color: #17181c;
@@ -123,6 +126,9 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
                 border-radius: 50%;
                 border: 2px solid orangered;
             }
+            .leaderboard_self td {
+                color: lime;
+            }
         </style>
     </head>
     <body class="text-light">
@@ -135,16 +141,23 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
                             <i class="fas fa-chart-line"></i>
                             Dashboard
                         </a>
+                        <a class="nav-link" href="{{ url('leaderboard') }}">
+                            <i class="fas fa-award"></i>
+                            Leaderboard
+                        </a>
                         <a class="nav-link" href="{{ url('topup') }}">
                             <i class="fas fa-donate"></i>
-                        Topup Shard</a>
+                            Topup Shard
+                        </a>
                         <a class="nav-link" href="{{ url('shard-tx') }}">
                             <i class="fas fa-history"></i>
-                        Shard History</a>
+                            Shard History
+                        </a>
                         {{-- <a class="nav-link" href="{{ url('redeem') }}">Redeem Shard</a> --}}
                         <a class="nav-link" href="{{ url('logout') }}">
                             <i class="fas fa-sign-out-alt"></i>
-                        Logout</a>
+                            Logout
+                        </a>
                     </nav>
                 </div>
                 <div class="col-12 col-md-11 py-3 px-5">
@@ -155,5 +168,8 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
             </div>
         </div>
         @yield('script')
+        <script>
+            $('.datatable').DataTable();
+        </script>
     </body>
 </html>

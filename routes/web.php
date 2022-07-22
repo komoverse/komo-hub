@@ -42,7 +42,6 @@ Route::get('paypal-get/{komo_tx_id}', [PageController::class, 'paypalGet']);
 Route::post('change-display-name', [PageController::class, 'changeDisplayName']);
 
 
-
 Route::post('validate/check-username', [PageController::class, 'registerCheckUsername']);
 Route::post('validate/check-email', [PageController::class, 'registerCheckEmail']);
 Route::post('validate/check-wallet', [PageController::class, 'registerCheckWallet']);
@@ -53,3 +52,7 @@ Route::get('reset-password/{hash}', [PageController::class, 'showNewPasswordForm
 Route::post('reset-password', [PageController::class, 'submitNewPassword']);
 
 Route::post('change-game-notif', [PageController::class, 'changeGameNotification']);
+
+Route::get('leaderboard', [PageController::class, 'showLeaderboard']);
+Route::get('leaderboard/{type}', [PageController::class, 'showLeaderboard']);
+Route::get('leaderboard/{type}/{param}', [PageController::class, 'showLeaderboard']);
