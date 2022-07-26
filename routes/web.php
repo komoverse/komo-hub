@@ -50,6 +50,8 @@ Route::get('forgot-password', [PageController::class, 'showForgotPasswordForm'])
 Route::post('forgot-password', [PageController::class, 'submitForgotPasswordRequest']);
 Route::get('reset-password/{hash}', [PageController::class, 'showNewPasswordForm']);
 Route::post('reset-password', [PageController::class, 'submitNewPassword']);
+Route::get('resend-verify-email', [PageController::class, 'resendVerifyEmail']);
+Route::post('verify-email', [PageController::class, 'submitVerifyEmail']);
 
 Route::post('change-game-notif', [PageController::class, 'changeGameNotification']);
 

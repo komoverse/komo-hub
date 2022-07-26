@@ -550,7 +550,7 @@ class PageController extends Controller
             $file_name = uniqid();
 
             // Create thumb for images
-            $images_ext  = ['jpg', 'jpeg', 'png', 'bmp'];
+            $images_ext  = ['jpg', 'jpeg', 'png', 'bmp', 'webp'];
             if (in_array(strtolower($file->getClientOriginalExtension()), $images_ext)) {
                 $img = Image::make($file)
                             ->encode('jpeg', 80)
@@ -708,5 +708,40 @@ class PageController extends Controller
             'lb_data' => $response,
         ];
         return view('user.leaderboard')->with($resp);
+    }
+
+    function submitVerifyEmail(Request $req) {
+        $data = [
+            'komo_username' => Session::get('userdata')->komo_username,
+            'email' => Session::get('userdata')->email,
+            'verify_code' => strtolower($req->verify_code),
+            'api_key' => $this->komo_api_key,
+        ];
+
+        $url = $this->komo_endpoint.'/v1/verify-email';
+        $response = $this->callAPI($url, null, $data);
+        if ($response->status == 'success') {
+            return redirect('/')->with('success', 'Email Verified');
+        } else {
+            return redirect('/')->with('error', 'Failed To Verify Email');
+        }
+    }
+
+    function resendVerifyEmail() {
+        $userdata = [
+            'komo_username' => Session::get('userdata')->komo_username,
+            'email' => Session::get('userdata')->email,
+            'code' => strtoupper(substr(Session::get('userdata')->salt, 0, 6)),
+        ];
+
+        if (\Mail::send('email.verify-email', $userdata, function ($message) use ($userdata) {
+                $message->from('developer@komoverse.io', 'Komoverse');
+                $message->to(Session::get('userdata')->email);
+                $message->subject('Verify Your Email - Komoverse');
+            })) {
+            return view('user.verify-code');
+        } else {
+            echo "error sending email";
+        }
     }
 }

@@ -162,6 +162,24 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
                 </div>
                 <div class="col-12 col-md-11 py-3 px-5">
                     <div class="container-fluid">
+                        @if (Session::get('userdata')->is_verified == 0)
+                        <div class="alert alert-warning" role="alert">
+                            Your Email is Not Verified. Please <a href="resend-verify-email">Click Here</a> to Resend Your Verification Email.
+                        </div>
+                        @endif
+
+                        @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
                         @yield('content')
                     </div>
                 </div>

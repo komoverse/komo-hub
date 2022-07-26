@@ -37,6 +37,12 @@
                     <input class="form-check-input" type="checkbox" id="switchNotification" {{ (Session::get('userdata')->game_newsletter_subscribe == 1) ? 'checked' : '' }}>
                     <label class="form-check-label" for="switchNotification">Send Game Update Notification via Email</label>
                 </div>
+                <br>
+                Solana Wallet: {!! (Session::get('userdata')->wallet_pubkey) ? Session::get('userdata')->wallet_pubkey : '
+                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="walletPopup">
+                    <i class="fas fa-wallet"></i> Add Solana Wallet
+                </button>
+                '; !!}
         </div>
     </div>
     <div class="col-12 col-md-7">
@@ -203,8 +209,8 @@
         <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Please upload square image 1:1 ratio. Otherwise, your image will be stretched. <br>Support jpg, jpeg, png, bmp
-        <input type="file" accept="image/png, image/jpg, image/jpeg, image/bmp" name="profile_picture" class="form-control">
+        Please upload square image 1:1 ratio. Otherwise, your image will be stretched. <br>Support jpg, jpeg, png, bmp, webp
+        <input type="file" accept="image/png, image/jpg, image/jpeg, image/bmp, image/webp" name="profile_picture" class="form-control">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>
@@ -213,6 +219,25 @@
     </div>
   </div>
     </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="walletPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add Solana Wallet</h5>
+        <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="inputWalletPubkey" class="form-control">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>
+        <button type="submit" class="btn btn-success" id="addSolanaWalletButton"><i class="fas fa-check"></i> Save</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -276,8 +301,37 @@
         });
     });
 
+    $("#addSolanaWalletButton").on('click', function() {
+        var walletaddress = $("input[name=inputWalletPubkey]").val();
+        if (validateWallet(walletaddress)) {
+            $.ajax({
+                url: '{{ url('add-wallet') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    komo_username: komo_username,
+                    wallet_pubkey: walletaddress,
+                    _token: "{{ csrf_token() }}",
+                },
+            })
+            .always(function(result) {
+                console.log(result);
+                if (result.status == 'success') {
+                    window.location.reload();
+                }
+            });
+        } else {
+            console.log("Invalid Solana Wallet");
+        }
+    });
+
     function validateUsername(username) {
         var regex = /^[a-zA-Z0-9.@?#()*\+\/;\-=[\\\]\^_{|}<> ]{6,30}$/;
+        return regex.test(username);
+    }
+
+    function validateWallet(wallet) {
+        var regex = /^[a-zA-Z0-9]{32,44}$/;
         return regex.test(username);
     }
 </script>
