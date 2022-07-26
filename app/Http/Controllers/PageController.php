@@ -461,7 +461,11 @@ class PageController extends Controller
         curl_close($ch);
 
         if ($decgoogresp->success == true) {
-
+            if (isset($req->subscribe) && ($req->subscribe == 1)) {
+                $subs = 1;
+            } else {
+                $subs = 0;
+            }
             $data = [
                 'api_key' => $this->komo_api_key,
                 'komo_username' => $req->komo_username,
@@ -469,6 +473,7 @@ class PageController extends Controller
                 'email' => $req->email,
                 'wallet_pubkey' => $req->wallet_pubkey,
                 'country' => $req->country,
+                'game_newsletter_subscribe' => $subs,
             ];
             $url = $this->komo_endpoint.'/v1/register';
             $response = $this->callAPI($url, null, $data);

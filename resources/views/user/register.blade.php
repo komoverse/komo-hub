@@ -309,7 +309,7 @@
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="subscribe">
+                    <input class="form-check-input" type="checkbox" value="1" id="subscribe" name="subscribe">
                     <label class="form-check-label" for="subscribe">
                         Subscribe to Game Patch and Announcement Mailing List
                     </label>
