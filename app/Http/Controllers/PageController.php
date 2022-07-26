@@ -749,4 +749,41 @@ class PageController extends Controller
             echo "error sending email";
         }
     }
+
+    function addSolanaWallet(Request $req) {
+        // check existing wallet
+        $data = [
+            'api_key' => $this->komo_api_key,
+            'wallet_pubkey' => $req->wallet_pubkey,
+        ];
+        $url = $this->komo_endpoint.'/v1/account-info/wallet';
+        $response = $this->callAPI($url, null, $data);
+        if ($response) {
+            $data = [
+                'status' => 'error',
+                'message' => 'This wallet is already used',
+            ];
+        } else {
+            // insert wallet
+            $data = [
+                'api_key' => $this->komo_api_key,
+                'wallet_pubkey' => $req->wallet_pubkey,
+                'komo_username' => Session::get('userdata')->komo_username,
+            ];
+            $url = $this->komo_endpoint.'/v1/add-wallet';
+            $response = $this->callAPI($url, null, $data);
+            if ($response->status == 'success') {
+                $data = [
+                    'status' => 'success',
+                    'message' => 'Wallet Successfully Added',
+                ];
+            } else {
+                $data = [
+                    'status' => 'error',
+                    'message' => 'Failed To Add Wallet',
+                ];
+            }
+        }
+        echo json_encode($data);
+    }
 }

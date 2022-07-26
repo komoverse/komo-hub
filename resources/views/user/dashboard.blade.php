@@ -39,7 +39,7 @@
                 </div>
                 <br>
                 Solana Wallet: {!! (Session::get('userdata')->wallet_pubkey) ? Session::get('userdata')->wallet_pubkey : '
-                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="walletPopup">
+                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#walletPopup">
                     <i class="fas fa-wallet"></i> Add Solana Wallet
                 </button>
                 '; !!}
@@ -176,6 +176,25 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="walletPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add Solana Wallet</h5>
+        <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="inputWalletPubkey" class="form-control">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>
+        <button type="submit" class="btn btn-success" id="addSolanaWalletButton"><i class="fas fa-check"></i> Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -221,24 +240,6 @@
     </form>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="walletPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content bg-dark">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Add Solana Wallet</h5>
-        <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <input type="text" name="inputWalletPubkey" class="form-control">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>
-        <button type="submit" class="btn btn-success" id="addSolanaWalletButton"><i class="fas fa-check"></i> Save</button>
-      </div>
-    </div>
-  </div>
-</div>
 @endsection
 
 @section('script')
@@ -309,7 +310,6 @@
                 type: 'POST',
                 dataType: 'json',
                 data: {
-                    komo_username: komo_username,
                     wallet_pubkey: walletaddress,
                     _token: "{{ csrf_token() }}",
                 },
@@ -318,10 +318,12 @@
                 console.log(result);
                 if (result.status == 'success') {
                     window.location.reload();
+                } else {
+                    alert(result.message);
                 }
             });
         } else {
-            console.log("Invalid Solana Wallet");
+            alert("Invalid Solana Wallet");
         }
     });
 
@@ -332,7 +334,7 @@
 
     function validateWallet(wallet) {
         var regex = /^[a-zA-Z0-9]{32,44}$/;
-        return regex.test(username);
+        return regex.test(wallet);
     }
 </script>
 @endsection

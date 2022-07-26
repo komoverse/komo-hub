@@ -22,7 +22,7 @@ Route::get('register', [PageController::class, 'showRegisterPage']);
 Route::post('register', [PageController::class, 'submitRegistration']);
 
 Route::post('change-pp', [PageController::class, 'changeProfilePicture']);
-
+Route::post('add-wallet', [PageController::class, 'addSolanaWallet']);
 
 Route::get('topup', [PageController::class, 'showTopupShardForm']);
 Route::get('topup/qris/{price_idr}', [PageController::class, 'topupShardIDR']);

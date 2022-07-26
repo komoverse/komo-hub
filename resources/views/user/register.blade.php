@@ -297,6 +297,7 @@
                 Solana Wallet Address <i class="fs-6">(optional)</i>
                 <input type="text" name="wallet_pubkey" class="form-control my-1">
                 <i id="wallet-exists" class="form-validation red" style="display: none">Wallet already used<br></i>
+                <i id="wallet-invalid" class="form-validation red" style="display: none">Invalid Wallet Address<br></i>
                 <i id="wallet-available" class="form-validation green" style="display: none">Wallet available<br></i>
 
                 <div class="g-recaptcha mt-2" data-sitekey="{{ $g_recaptcha_site_key }}"></div>
@@ -414,28 +415,38 @@
         var csrf = $('input[name=_token]').val();
         console.log(wallet_pubkey);
         if (wallet_pubkey != '') {
-            $.ajax({
-                url: "{{ url('validate/check-wallet') }}",
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    wallet_pubkey: wallet_pubkey,
-                    _token: csrf,
-                },
-            })
-            .always(function(result) {
-                console.log(result);
-                if (result.message == 'Wallet Exists') {
-                    $("#wallet-available").hide();
-                    $("#wallet-exists").show();
-                    valid[2] = false;
-                } else {
-                    $("#wallet-available").show();
-                    $("#wallet-exists").hide();
-                    valid[2] = true;
-                }
-            });
+            if (validateWallet(wallet_pubkey)) {
+                $.ajax({
+                    url: "{{ url('validate/check-wallet') }}",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        wallet_pubkey: wallet_pubkey,
+                        _token: csrf,
+                    },
+                })
+                .always(function(result) {
+                    console.log(result);
+                    if (result.message == 'Wallet Exists') {
+                        $("#wallet-invalid").hide();
+                        $("#wallet-available").hide();
+                        $("#wallet-exists").show();
+                        valid[2] = false;
+                    } else {
+                        $("#wallet-available").show();
+                        $("#wallet-invalid").hide();
+                        $("#wallet-exists").hide();
+                        valid[2] = true;
+                    }
+                });
+            } else {
+                $("#wallet-invalid").show();
+                $("#wallet-available").hide();
+                $("#wallet-exists").hide();
+                valid[2] = false;
+            }
         } else {
+            $("#wallet-invalid").hide();
             $("#wallet-available").hide();
             $("#wallet-exists").hide();
             valid[2] = true;
@@ -493,6 +504,11 @@
     function validateUsername(username) {
         var regex = /^(?=.{6,30}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
         return regex.test(username);
+    }
+
+    function validateWallet(wallet) {
+        var regex = /^[a-zA-Z0-9]{32,44}$/;
+        return regex.test(wallet);
     }
 </script>
 @endsection
