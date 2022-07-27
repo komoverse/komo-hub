@@ -111,11 +111,12 @@ class PageController extends Controller
         $this->refreshAccountInfo();
 
         // SHARD Transaction history
-        $url = $this->komo_endpoint.'/v1/get-shard-tx-by-username';
         $postdata = [
             'api_key' => $this->komo_api_key,
             'komo_username' => Session::get('userdata')->komo_username,
+            'limit' => 5,
         ];
+        $url = $this->komo_endpoint.'/v1/get-shard-tx-by-username';
         $shard_tx = $this->callAPI($url, null, $postdata);
 
         // Render data 

@@ -172,6 +172,9 @@
                 @endif
                 @endforeach
             </table>
+            <p class="text-end">
+                <a href="{{ url('shard-tx') }}" style="color:lime; text-decoration: none">Show All Shard Transaction History >></a>
+            </p>
         </div>
     </div>
 </div>
