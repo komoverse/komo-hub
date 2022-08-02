@@ -38,11 +38,20 @@
                     <label class="form-check-label" for="switchNotification">Send Game Update Notification via Email</label>
                 </div>
                 <br>
-                Solana Wallet: {!! (Session::get('userdata')->wallet_pubkey) ? Session::get('userdata')->wallet_pubkey : '
-                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#walletPopup">
-                    <i class="fas fa-wallet"></i> Add Solana Wallet
-                </button>
-                '; !!}
+                <div class="d-block d-md-none">
+                    Solana Wallet: {!! (Session::get('userdata')->wallet_pubkey) ? substr(Session::get('userdata')->wallet_pubkey,0,5).'...'.substr(Session::get('userdata')->wallet_pubkey, (strlen(Session::get('userdata')->wallet_pubkey) - 5), 5) : '
+                    <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#walletPopup">
+                        <i class="fas fa-wallet"></i> Add Solana Wallet
+                    </button>
+                    '; !!}
+                </div>
+                <div class="d-none d-md-block">
+                    Solana Wallet: {!! (Session::get('userdata')->wallet_pubkey) ? Session::get('userdata')->wallet_pubkey : '
+                    <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#walletPopup">
+                        <i class="fas fa-wallet"></i> Add Solana Wallet
+                    </button>
+                    '; !!}
+                </div>
         </div>
     </div>
     <div class="col-12 col-md-7">
@@ -51,10 +60,10 @@
             <hr>
             <div class="history-wrapper history-p1">
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-2 col-md-1 p-0">
                         <span class="placement">#1</span>
                     </div>
-                    <div class="col-7">
+                    <div class="col-7 col-md-9">
                         <span class="lineup">LINEUP</span>
                         <div class="lineup-icon">
                             <img src="{{ url('assets/img/heroes-icon/kuli.webp') }}" alt="" class="heroes-icon">
@@ -65,7 +74,19 @@
                             <img src="{{ url('assets/img/3-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
+                            <img src="{{ url('assets/img/heroes-icon/skeleton_king.webp') }}" alt="" class="heroes-icon">
+                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
+                        </div>
+                        <div class="lineup-icon">
+                            <img src="{{ url('assets/img/heroes-icon/skeleton_king.webp') }}" alt="" class="heroes-icon">
+                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
+                        </div>
+                        <div class="lineup-icon">
                             <img src="{{ url('assets/img/heroes-icon/raven.webp') }}" alt="" class="heroes-icon">
+                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
+                        </div>
+                        <div class="lineup-icon">
+                            <img src="{{ url('assets/img/heroes-icon/rodan.webp') }}" alt="" class="heroes-icon">
                             <img src="{{ url('assets/img/2-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
@@ -73,11 +94,15 @@
                             <img src="{{ url('assets/img/2-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
+                            <img src="{{ url('assets/img/heroes-icon/cupid.webp') }}" alt="" class="heroes-icon">
+                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
+                        </div>
+                        <div class="lineup-icon">
                             <img src="{{ url('assets/img/heroes-icon/baby_dragon.webp') }}" alt="" class="heroes-icon">
                             <img src="{{ url('assets/img/2-star.png') }}" class="star">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 col-md-2">
                         <span class="kd_ratio">
                             K / D
                         </span>
@@ -88,15 +113,27 @@
             </div>
             <div class="history-wrapper history-p4">
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-2 col-md-1 p-0">
                         <span class="placement">#4</span>
                     </div>
-                    <div class="col-7">
+                    <div class="col-7 col-md-9">
                         <span class="lineup">LINEUP</span>
+                        <div class="lineup-icon">
+                            <img src="{{ url('assets/img/heroes-icon/skeleton_king.webp') }}" alt="" class="heroes-icon">
+                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
+                        </div>
+                        <div class="lineup-icon">
+                            <img src="{{ url('assets/img/heroes-icon/biyawak.webp') }}" alt="" class="heroes-icon">
+                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
+                        </div>
 
                         <div class="lineup-icon">
                             <img src="{{ url('assets/img/heroes-icon/lucifer.webp') }}" alt="" class="heroes-icon"> 
                             <img src="{{ url('assets/img/3-star.png') }}" class="star">
+                        </div>
+                        <div class="lineup-icon">
+                            <img src="{{ url('assets/img/heroes-icon/ogre.webp') }}" alt="" class="heroes-icon"> 
+                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
                             <img src="{{ url('assets/img/heroes-icon/kunoichi.webp') }}" alt="" class="heroes-icon"> 
@@ -111,7 +148,7 @@
                             <img src="{{ url('assets/img/1-star.png') }}" class="star">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 col-md-2">
                         <span class="kd_ratio">
                             K / D
                         </span>
@@ -122,12 +159,20 @@
             </div>
             <div class="history-wrapper history-p8">
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-2 col-md-1 p-0">
                         <span class="placement">#8</span>
                     </div>
-                    <div class="col-7">
+                    <div class="col-7 col-md-9">
                         <span class="lineup">LINEUP</span>
 
+                        <div class="lineup-icon">
+                            <img src="{{ url('assets/img/heroes-icon/baby_dragon.webp') }}" alt="" class="heroes-icon"> 
+                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
+                        </div>
+                        <div class="lineup-icon">
+                            <img src="{{ url('assets/img/heroes-icon/paladin.webp') }}" alt="" class="heroes-icon"> 
+                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
+                        </div>
                         <div class="lineup-icon">
                             <img src="{{ url('assets/img/heroes-icon/butcher.webp') }}" alt="" class="heroes-icon"> 
                             <img src="{{ url('assets/img/2-star.png') }}" class="star">
@@ -141,7 +186,7 @@
                             <img src="{{ url('assets/img/1-star.png') }}" class="star">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 col-md-2">
                         <span class="kd_ratio">
                             K / D
                         </span>

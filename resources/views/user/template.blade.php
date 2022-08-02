@@ -24,6 +24,12 @@
             .nav-wrapper {
                 font-size: 0.6rem;
             }
+           @media (min-width: 767.98px) {
+                .nav-wrapper {
+                    font-size: 0.6rem;
+                    min-height: 100vh !important;
+                }
+            }
             .nav-wrapper .nav-link {
                 padding: 5px;
                 margin-bottom: 10px;
@@ -86,12 +92,13 @@ background: rgb(152,0,0);
 background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,170,8,0) 100%);
             }
             .history-wrapper .placement {
-                font-size: 3rem;
+                font-size: 2.5rem;
                 font-weight: bold;
             }
             .history-wrapper .lineup,
             .history-wrapper .kd_ratio {
                 display: block;
+                font-size: 0.8rem;
             }
             .history-wrapper .kill {
                 font-size: 1.6rem;
@@ -106,14 +113,15 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
             .history-wrapper .lineup-icon {
                 display: inline-block;
                 position: relative;
+                margin-bottom: 5px;
             }
             .history-wrapper .lineup-icon img {
-                width: 40px;
+                width: 35px;
             }
             .history-wrapper .lineup-icon .star {
                 position: absolute;
                 bottom: 0;
-                left: 5px;
+                left: 3px;
                 width: auto;
                 height: 10px;
                 text-align: center;
@@ -129,38 +137,52 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
             .leaderboard_self td {
                 color: lime;
             }
+            .menu-stipes {
+                color: white;
+                text-decoration: none;
+                font-size: 2rem;
+                float: right;
+                margin-top: 15px;
+                margin-right: 20px;
+            }
         </style>
     </head>
     <body class="text-light">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 col-md-1 nav-wrapper bg-main text-light min-vh-100">
-                    <img src="{{ url('assets/img/favicon.webp') }}" style="width: 90px" class="mt-3" alt="">
-                    <nav class="nav flex-column mt-2">
-                        <a class="nav-link active" aria-current="page" href="{{ url('/') }}">
-                            <i class="fas fa-chart-line"></i>
-                            Dashboard
-                        </a>
-                        <a class="nav-link" href="{{ url('leaderboard') }}">
-                            <i class="fas fa-award"></i>
-                            Leaderboard
-                        </a>
-                        <a class="nav-link" href="{{ url('topup') }}">
-                            <i class="fas fa-donate"></i>
-                            Topup Shard
-                        </a>
-                        <a class="nav-link" href="{{ url('shard-tx') }}">
-                            <i class="fas fa-history"></i>
-                            Shard History
-                        </a>
-                        {{-- <a class="nav-link" href="{{ url('redeem') }}">Redeem Shard</a> --}}
-                        <a class="nav-link" href="{{ url('logout') }}">
-                            <i class="fas fa-sign-out-alt"></i>
-                            Logout
-                        </a>
-                    </nav>
+                <div class="col-12 col-md-1 nav-wrapper bg-main text-light">
+                    <img src="{{ url('assets/img/favicon.webp') }}" style="width: 90px" class="mt-3 d-none d-md-block" alt="">
+                    <img src="{{ url('assets/img/favicon.webp') }}" style="height: 60px" class="my-2 d-inline-block d-md-none" alt="">
+                    <a class="menu-stipes d-inline-block d-md-none flex-right" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" role="button">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                    <div class="collapse d-md-block" id="collapseExample">
+                        <nav class="nav flex-column mt-2">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/') }}">
+                                <i class="fas fa-chart-line"></i>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="{{ url('leaderboard') }}">
+                                <i class="fas fa-award"></i>
+                                Leaderboard
+                            </a>
+                            <a class="nav-link" href="{{ url('topup') }}">
+                                <i class="fas fa-donate"></i>
+                                Topup Shard
+                            </a>
+                            <a class="nav-link" href="{{ url('shard-tx') }}">
+                                <i class="fas fa-history"></i>
+                                Shard History
+                            </a>
+                            {{-- <a class="nav-link" href="{{ url('redeem') }}">Redeem Shard</a> --}}
+                            <a class="nav-link" href="{{ url('logout') }}">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </nav>
+                    </div>
                 </div>
-                <div class="col-12 col-md-11 py-3 px-5">
+                <div class="col-12 col-md-11 py-3 px-md-5">
                     <div class="container-fluid">
                         @if (Session::get('userdata')->is_verified == 0)
                         <div class="alert alert-warning" role="alert">
