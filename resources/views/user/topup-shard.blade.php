@@ -8,7 +8,7 @@
     <div class="row g-3">
         <div class="col-12 col-md-3">
             <div class="bg-main p-3 text-center">
-                <h3>10 SHARD</h3>
+                <h3>1,000 SHARD</h3>
                 <img src="{{ url('assets/img/topup-shard/10.png') }}" alt="">
                 <button data-amount="1000" class="w-100 mb-2 btn btn-outline-success btn-topup-idr">
                     <i class="fas fa-qrcode"></i> IDR 1,000 via QRIS
@@ -23,7 +23,7 @@
         </div>
         <div class="col-12 col-md-3">
             <div class="bg-main p-3 text-center">
-                <h3>50 SHARD</h3>
+                <h3>5,000 SHARD</h3>
                 <img src="{{ url('assets/img/topup-shard/10.png') }}" alt="">
                 <button data-amount="5000" class="w-100 mb-2 btn btn-outline-success btn-topup-idr">
                     <i class="fas fa-qrcode"></i> IDR 5,000 via QRIS
@@ -38,7 +38,7 @@
         </div>
         <div class="col-12 col-md-3">
             <div class="bg-main p-3 text-center">
-                <h3>100 SHARD</h3>
+                <h3>10,000 SHARD</h3>
                 <img src="{{ url('assets/img/topup-shard/10.png') }}" alt="">
                 <button data-amount="10000" class="w-100 mb-2 btn btn-outline-success btn-topup-idr">
                     <i class="fas fa-qrcode"></i> IDR 10,000 via QRIS
@@ -53,7 +53,7 @@
         </div>
         <div class="col-12 col-md-3">
             <div class="bg-main p-3 text-center">
-                <h3>250 SHARD</h3>
+                <h3>25,000 SHARD</h3>
                 <img src="{{ url('assets/img/topup-shard/10.png') }}" alt="">
                 <button data-amount="25000" class="w-100 mb-2 btn btn-outline-success btn-topup-idr">
                     <i class="fas fa-qrcode"></i> IDR 25,000 via QRIS
@@ -68,7 +68,7 @@
         </div>
         <div class="col-12 col-md-3">
             <div class="bg-main p-3 text-center">
-                <h3>500 SHARD</h3>
+                <h3>50,000 SHARD</h3>
                 <img src="{{ url('assets/img/topup-shard/10.png') }}" alt="">
                 <button data-amount="50000" class="w-100 mb-2 btn btn-outline-success btn-topup-idr">
                     <i class="fas fa-qrcode"></i> IDR 50,000 via QRIS
@@ -83,7 +83,7 @@
         </div>
         <div class="col-12 col-md-3">
             <div class="bg-main p-3 text-center">
-                <h3>1000 SHARD</h3>
+                <h3>100,000 SHARD</h3>
                 <img src="{{ url('assets/img/topup-shard/10.png') }}" alt="">
                 <button data-amount="100000" class="w-100 mb-2 btn btn-outline-success btn-topup-idr">
                     <i class="fas fa-qrcode"></i> IDR 100,000 via QRIS

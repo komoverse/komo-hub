@@ -158,7 +158,7 @@ class PageController extends Controller
         $qris_url = $this->pg_endpoint.'/accounts/'.$this->pg_account_id.'/deposits/requests/'.$pg_data->id.'/qr';
                 
         // Get SHARD Exchange (TBD)
-        $amount_shard = $price / 100;
+        $amount_shard = $price;
 
         // // Save SHARD Transaction to KOMO DB
         $komo_url = $this->komo_endpoint.'/v1/save-shard-tx';
@@ -198,7 +198,7 @@ class PageController extends Controller
         $pg_data = $this->callAPI($url, $this->pg_header, $data);
 
         // Get SHARD Exchange (TBD)
-        $amount_shard = $price / 100;
+        $amount_shard = $price;
 
         // // Save SHARD Transaction to KOMO DB
         $komo_url = $this->komo_endpoint.'/v1/save-shard-tx';
@@ -351,7 +351,7 @@ class PageController extends Controller
         $paypal = $provider->createOrder($data);
 
         // Get SHARD Exchange (TBD)
-        $amount_shard = $price * 100;
+        $amount_shard = $price * 10000;
 
         // // Save SHARD Transaction to KOMO DB
         $komo_url = $this->komo_endpoint.'/v1/save-shard-tx';
