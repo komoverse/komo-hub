@@ -13,11 +13,14 @@
                 <button data-amount="1000" class="w-100 mb-2 btn btn-outline-success btn-topup-idr">
                     <i class="fas fa-qrcode"></i> IDR 1,000 via QRIS
                 </button>
-                <button data-amount="1000" class="w-100 mb-2 btn btn-outline-success btn-topup-idrva">
-                    <i class="fas fa-money-bill-wave"></i> IDR 1,000 via VA
+                <button data-amount="1000" disabled="disabled" class="w-100 mb-2 btn btn-outline-secondary btn-topup-idrva">
+                    <i class="fas fa-money-bill-wave"></i> VA Not Available
                 </button>
                 <button data-amount="0.1" class="w-100 mb-2 btn btn-outline-warning btn-topup-paypal">
                     <i class="fab fa-paypal"></i> USD 0.1 via Paypal
+                </button>
+                <button data-amount="1000" class="w-100 mb-2 btn btn-outline-primary btn-topup-coinpayments">
+                    <i class="fas fa-coins"></i> SOL via Coin Payments (equivalent USD 0.1)
                 </button>
             </div>
         </div>
@@ -28,11 +31,14 @@
                 <button data-amount="5000" class="w-100 mb-2 btn btn-outline-success btn-topup-idr">
                     <i class="fas fa-qrcode"></i> IDR 5,000 via QRIS
                 </button>
-                <button data-amount="5000" class="w-100 mb-2 btn btn-outline-success btn-topup-idrva">
-                    <i class="fas fa-money-bill-wave"></i> IDR 5,000 via VA
+                <button data-amount="5000" disabled="disabled" class="w-100 mb-2 btn btn-outline-secondary btn-topup-idrva">
+                    <i class="fas fa-money-bill-wave"></i> VA Not Available
                 </button>
                 <button data-amount="0.5" class="w-100 mb-2 btn btn-outline-warning btn-topup-paypal">
                     <i class="fab fa-paypal"></i> USD 0.5 via Paypal
+                </button>
+                <button data-amount="5000" class="w-100 mb-2 btn btn-outline-primary btn-topup-coinpayments">
+                    <i class="fas fa-coins"></i> SOL via Coin Payments (equivalent USD 0.5)
                 </button>
             </div>
         </div>
@@ -49,6 +55,9 @@
                 <button data-amount="1" class="w-100 mb-2 btn btn-outline-warning btn-topup-paypal">
                     <i class="fab fa-paypal"></i> USD 1 via Paypal
                 </button>
+                <button data-amount="10000" class="w-100 mb-2 btn btn-outline-primary btn-topup-coinpayments">
+                    <i class="fas fa-coins"></i> SOL via Coin Payments (equivalent USD 1)
+                </button>
             </div>
         </div>
         <div class="col-12 col-md-3">
@@ -63,6 +72,9 @@
                 </button>
                 <button data-amount="2.5" class="w-100 mb-2 btn btn-outline-warning btn-topup-paypal">
                     <i class="fab fa-paypal"></i> USD 2.5 via Paypal
+                </button>
+                <button data-amount="25000" class="w-100 mb-2 btn btn-outline-primary btn-topup-coinpayments">
+                    <i class="fas fa-coins"></i> SOL via Coin Payments (equivalent USD 2.5)
                 </button>
             </div>
         </div>
@@ -79,6 +91,9 @@
                 <button data-amount="5" class="w-100 mb-2 btn btn-outline-warning btn-topup-paypal">
                     <i class="fab fa-paypal"></i> USD 5 via Paypal
                 </button>
+                <button data-amount="50000" class="w-100 mb-2 btn btn-outline-primary btn-topup-coinpayments">
+                    <i class="fas fa-coins"></i> SOL via Coin Payments (equivalent USD 5)
+                </button>
             </div>
         </div>
         <div class="col-12 col-md-3">
@@ -94,6 +109,9 @@
                 <button data-amount="10" class="w-100 mb-2 btn btn-outline-warning btn-topup-paypal">
                     <i class="fab fa-paypal"></i> USD 10 via Paypal
                 </button>
+                <button data-amount="100000" class="w-100 mb-2 btn btn-outline-primary btn-topup-coinpayments">
+                    <i class="fas fa-coins"></i> SOL via Coin Payments (equivalent USD 10)
+                </button>
             </div>
         </div>
     </div>
@@ -102,15 +120,23 @@
 <script>
     $('.btn-topup-idr').on('click', function(){
         var amount = $(this).data('amount');
-        window.location.replace('{{ url('topup/qris').'/' }}'+amount);Kalau
+        window.location.replace('{{ url('topup/qris').'/' }}'+amount);
     });
     $('.btn-topup-idrva').on('click', function(){
         var amount = $(this).data('amount');
-        window.location.replace('{{ url('topup/idr-va').'/' }}'+amount);Kalau
+        window.location.replace('{{ url('topup/idr-va').'/' }}'+amount);
     });
     $('.btn-topup-paypal').on('click', function(){
         var amount = $(this).data('amount');
-        window.location.replace('{{ url('topup/paypal').'/' }}'+amount);Kalau
+        window.location.replace('{{ url('topup/paypal').'/' }}'+amount);
+    });
+    $('.btn-topup-paypal').on('click', function(){
+        var amount = $(this).data('amount');
+        window.location.replace('{{ url('topup/paypal').'/' }}'+amount);
+    });
+    $('.btn-topup-coinpayments').on('click', function(){
+        var amount = $(this).data('amount');
+        window.location.replace('{{ url('topup/coinpayments').'/' }}'+amount);
     });
 </script>
 @endsection

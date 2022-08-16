@@ -40,8 +40,12 @@
                                 <i class="fas fa-money-bill-wave"></i>
                             </a>
                             @elseif (str_contains($row->description, 'Paypal'))
-                            <a href="{{ url('topup/paypal/link/'.$row->komo_tx_id) }}">
+                            <a target="_blank" href="{{ url('topup/paypal/link/'.$row->komo_tx_id) }}">
                                 <i class="fab fa-paypal"></i>
+                            </a>
+                            @elseif (str_contains($row->description, 'Coin Payments'))
+                            <a target="_blank" href="{{ url('topup/coinpayments/link/'.$row->komo_tx_id) }}">
+                                <i class="fa fa-coins"></i>
                             </a>
                             @endif
                         @endif 

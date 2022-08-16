@@ -787,4 +787,29 @@ class PageController extends Controller
         }
         echo json_encode($data);
     }
+
+    function topupShardCoinPayments(Request $req) {
+        $data = [
+            'api_key' => $this->komo_api_key,
+            'komo_username' => Session::get('userdata')->komo_username,
+            'amount_shard' => $req->shard_amount,
+        ];
+        $url = $this->komo_endpoint.'/v1/topup-shard/sol/cp';
+        $response = $this->callAPI($url, null, $data);
+
+        $redirect = json_decode($response->cp_data)->result->checkout_url;
+        return redirect($redirect);
+    }
+
+    function redirectCoinPaymentsLink(Request $req) {
+        $data = [
+            'api_key' => $this->komo_api_key,
+            'komo_tx_id' => $req->komo_tx_id,
+        ];
+        $komo_url = $this->komo_endpoint.'/v1/get-shard-tx';
+        $returndata = $this->callAPI($komo_url, null, $data);
+        $cp_data = json_decode($returndata->custom_param);
+        $redirect = $cp_data->result->checkout_url;
+        return redirect($redirect);
+    }
 }

@@ -36,6 +36,10 @@ Route::get('check-va-tx/{komo_tx_id}', [PageController::class, 'checkVATXStatus'
 Route::get('topup/paypal/{price_usd}', [PageController::class, 'topupShardPaypal']);
 Route::get('topup/paypal/link/{komo_tx_id}', [PageController::class, 'redirectPaypalLink']);
 
+Route::get('topup/coinpayments/{shard_amount}', [PageController::class, 'topupShardCoinPayments']);
+Route::get('topup/coinpayments/link/{komo_tx_id}', [PageController::class, 'redirectCoinPaymentsLink']);
+
+
 Route::get('paypal', [PageController::class, 'paypal']);
 Route::get('paypal-get/{komo_tx_id}', [PageController::class, 'paypalGet']);
 
