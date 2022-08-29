@@ -1,3 +1,4 @@
+<?php if (is_null(\Session::get('userdata'))) { header('location: '.url('login')); die(); } ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -188,7 +189,7 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
                     <div class="container-fluid">
                         @if (Session::get('userdata')->is_verified == 0)
                         <div class="alert alert-warning" role="alert">
-                            Your Email is Not Verified. Please <a href="resend-verify-email">Click Here</a> to Resend Your Verification Email.
+                            Your Email is Not Verified. Please <a href="{{ url('resend-verify-email') }}">Click Here</a> to Resend Your Verification Email.
                         </div>
                         @endif
 

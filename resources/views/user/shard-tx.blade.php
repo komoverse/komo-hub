@@ -3,7 +3,6 @@
 <div class="row">
     <div class="col-12">
         <h1>SHARD Transaction History</h1>
-        <h3>Sandbox Environment. QRIS is not available for transaction. Use VA and Paypal only for topup.</h3>
         <table class="table table-dark">
             <thead>
                 <tr>
