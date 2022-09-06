@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\pgController;
-use App\Http\Controllers\KomoAPIController;
 use App\Models\PageModel;
 use Session;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -263,72 +261,72 @@ class PageController extends Controller
         return view('user/shard-tx')->with($data);
     }
 
-    public function checkQRISTXStatus(Request $req) {
-        // Get TX ID from KOMO
-        $data = [
-            'api_key' => $this->komo_api_key,
-            'komo_tx_id' => $req->komo_tx_id,
-        ];
-        $komo_url = $this->komo_endpoint.'/v1/get-shard-tx';
-        $returndata = $this->callAPI($komo_url, null, $data);
-        $pg_data = json_decode($returndata->custom_param);
+    // public function checkQRISTXStatus(Request $req) {
+    //     // Get TX ID from KOMO
+    //     $data = [
+    //         'api_key' => $this->komo_api_key,
+    //         'komo_tx_id' => $req->komo_tx_id,
+    //     ];
+    //     $komo_url = $this->komo_endpoint.'/v1/get-shard-tx';
+    //     $returndata = $this->callAPI($komo_url, null, $data);
+    //     $pg_data = json_decode($returndata->custom_param);
 
-        $pg_tx_id = $pg_data->PG_data->id;
+    //     $pg_tx_id = $pg_data->PG_data->id;
 
-        // Check TX From PG
-        $url = $this->pg_endpoint.'/accounts/'.$this->pg_account_id.'/deposits/requests/'.$pg_tx_id;
-        $pg_data = $this->callAPIGET($url, $this->pg_header);
-        if ($pg_data->status != 'pending') {
-            // Update KOMO Database
-            $komo_update_url = $this->komo_endpoint.'/v1/update-shard-tx';
-            $data = [
-                'api_key' => $this->komo_api_key,
-                'komo_tx_id' => $req->komo_tx_id,
-                'tx_status' => $pg_data->status,
-                'custom_param' => json_encode($pg_data),
-            ];
-            $update = $this->callAPI($komo_update_url, null, $data);
-            if ($update == 'success') {
-                echo $pg_data->status;
-            }
-        } else {
-            echo $pg_data->status;
-        }
-    }
+    //     // Check TX From PG
+    //     $url = $this->pg_endpoint.'/accounts/'.$this->pg_account_id.'/deposits/requests/'.$pg_tx_id;
+    //     $pg_data = $this->callAPIGET($url, $this->pg_header);
+    //     if ($pg_data->status != 'pending') {
+    //         // Update KOMO Database
+    //         $komo_update_url = $this->komo_endpoint.'/v1/update-shard-tx';
+    //         $data = [
+    //             'api_key' => $this->komo_api_key,
+    //             'komo_tx_id' => $req->komo_tx_id,
+    //             'tx_status' => $pg_data->status,
+    //             'custom_param' => json_encode($pg_data),
+    //         ];
+    //         $update = $this->callAPI($komo_update_url, null, $data);
+    //         if ($update == 'success') {
+    //             echo $pg_data->status;
+    //         }
+    //     } else {
+    //         echo $pg_data->status;
+    //     }
+    // }
 
-    public function checkVATXStatus(Request $req) {
-        // Get TX ID from KOMO
-        $data = [
-            'api_key' => $this->komo_api_key,
-            'komo_tx_id' => $req->komo_tx_id,
-        ];
-        $komo_url = $this->komo_endpoint.'/v1/get-shard-tx';
-        $returndata = $this->callAPI($komo_url, null, $data);
-        $pg_data = json_decode($returndata->custom_param);
+    // public function checkVATXStatus(Request $req) {
+    //     // Get TX ID from KOMO
+    //     $data = [
+    //         'api_key' => $this->komo_api_key,
+    //         'komo_tx_id' => $req->komo_tx_id,
+    //     ];
+    //     $komo_url = $this->komo_endpoint.'/v1/get-shard-tx';
+    //     $returndata = $this->callAPI($komo_url, null, $data);
+    //     $pg_data = json_decode($returndata->custom_param);
 
-        $pg_tx_id = $pg_data->id;
+    //     $pg_tx_id = $pg_data->id;
 
-        // Check TX From PG
-        $url = $this->pg_endpoint.'/accounts/'.$this->pg_account_id.'/deposits/requests/'.$pg_tx_id;
-        $pg_data = $this->callAPIGET($url, $this->pg_header);
-        if ($pg_data->status == 'captured') {
-            // Update KOMO Database
-            $komo_update_url = $this->komo_endpoint.'/v1/update-shard-tx';
-            $data = [
-                'api_key' => $this->komo_api_key,
-                'komo_tx_id' => $req->komo_tx_id,
-                'tx_status' => 'success',
-                'custom_param' => json_encode($pg_data),
-            ];
-            $update = $this->callAPI($komo_update_url, null, $data);
-            var_dump($update); exit;
-            if ($update == 'success') {
-                echo $pg_data->status;
-            }
-        } else {
-            echo $pg_data->status;
-        }
-    }
+    //     // Check TX From PG
+    //     $url = $this->pg_endpoint.'/accounts/'.$this->pg_account_id.'/deposits/requests/'.$pg_tx_id;
+    //     $pg_data = $this->callAPIGET($url, $this->pg_header);
+    //     if ($pg_data->status == 'captured') {
+    //         // Update KOMO Database
+    //         $komo_update_url = $this->komo_endpoint.'/v1/update-shard-tx';
+    //         $data = [
+    //             'api_key' => $this->komo_api_key,
+    //             'komo_tx_id' => $req->komo_tx_id,
+    //             'tx_status' => 'success',
+    //             'custom_param' => json_encode($pg_data),
+    //         ];
+    //         $update = $this->callAPI($komo_update_url, null, $data);
+    //         var_dump($update); exit;
+    //         if ($update == 'success') {
+    //             echo $pg_data->status;
+    //         }
+    //     } else {
+    //         echo $pg_data->status;
+    //     }
+    // }
 
     public function topupShardPaypal(Request $req) {
         $price = (float) $req->price_usd;
