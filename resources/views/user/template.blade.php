@@ -69,8 +69,17 @@
             .shard-amount {
                 font-size: 1.5rem;
                 display: block;
-                color: deepskyblue;
+                color: #c449c0;
                 font-weight: bold;
+            }
+            .btn-outline-purple {
+                border: 1px solid #c449c0;
+                color: #c449c0;
+            }
+            .btn-outline-purple:hover {
+                background: #c449c0;
+                color: white;
+                border: 1px solid #c449c0;
             }
             .text-shard {
                 font-weight: normal;

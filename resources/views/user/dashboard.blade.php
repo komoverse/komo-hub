@@ -19,7 +19,7 @@
             </span>
             <span class="shard-amount">
                 <img src="{{ url('assets/img/shard.webp') }}" alt=""> {{ Session::get('userdata')->shard }} <span class="text-shard">SHARD</span>
-                <a href="{{ url('topup') }}" class="ms-3 btn btn-sm btn-outline-info"><i class="fas fa-plus"></i> Topup</a>
+                <a href="{{ url('topup') }}" class="ms-3 btn btn-sm btn-outline-purple"><i class="fas fa-plus"></i> Topup</a>
             </span>
 
             <div class="pp-wrapper mt-3">
