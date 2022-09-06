@@ -18,7 +18,7 @@
             </button>
             </span>
             <span class="shard-amount">
-                <img src="{{ url('assets/img/topup-shard/shard-1.png') }}" alt=""> {{ Session::get('userdata')->shard }} <span class="text-shard">SHARD</span>
+                <img src="{{ url('assets/img/topup-shard/shard-1.webp') }}" alt=""> {{ Session::get('userdata')->shard }} <span class="text-shard">SHARD</span>
                 <a href="{{ url('topup') }}" class="ms-3 btn btn-sm btn-outline-info"><i class="fas fa-plus"></i> Topup</a>
             </span>
 
