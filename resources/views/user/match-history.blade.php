@@ -42,7 +42,7 @@
                             <div class="lineup-icon">
                                 <img src="{{ url('assets/img/synergy-icon/icon-'.$key.'.webp') }}" alt="{{ $key }} icon" class="synergy-icon"  onError="this.onerror=null;this.src='{{ url('assets/img/nopic.webp') }}';" 
         data-bs-toggle="tooltip" data-bs-placement="top"
-        data-bs-title="{{ ucwords(str_replace('_', ' ', $key)) }}">
+        data-bs-title="{{ $value }} {{ ucwords(str_replace('_', ' ', $key)) }}">
                                 <div class="synergy-wrapper">
                                     @for ($i = 1; $i <= $value; $i++)
                                     <img src="{{ url('assets/img/yellow-box.png') }}" alt="icon" class="synergy-value">
