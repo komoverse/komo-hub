@@ -78,7 +78,7 @@
                             <img src="{{ url('assets/img/3-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/skeleton_king.webp') }}" alt="" class="heroes-icon">
+                            <img src="{{ url('assets/img/heroes-icon/rasputin.webp') }}" alt="" class="heroes-icon">
                             <img src="{{ url('assets/img/3-star.png') }}" class="star">
                         </div>
                         <div class="lineup-icon">
@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-3 col-md-2">
                         <span class="kd_ratio">
-                            K / D
+                            W / L
                         </span>
                             <span class="kill">30</span>
                             <span class="death">18</span>
@@ -150,7 +150,7 @@
                     </div>
                     <div class="col-3 col-md-2">
                         <span class="kd_ratio">
-                            K / D
+                            W / L
                         </span>
                             <span class="kill">25</span>
                             <span class="death">22</span>
@@ -188,7 +188,7 @@
                     </div>
                     <div class="col-3 col-md-2">
                         <span class="kd_ratio">
-                            K / D
+                            W / L
                         </span>
                             <span class="kill">14</span>
                             <span class="death">28</span>
