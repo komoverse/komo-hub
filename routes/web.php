@@ -62,3 +62,6 @@ Route::post('change-game-notif', [PageController::class, 'changeGameNotification
 Route::get('leaderboard', [PageController::class, 'showLeaderboard']);
 Route::get('leaderboard/{type}', [PageController::class, 'showLeaderboard']);
 Route::get('leaderboard/{type}/{param}', [PageController::class, 'showLeaderboard']);
+
+Route::get('match-detail/{match_id}', [PageController::class, 'showMatchDetail']);
+Route::get('match-history', [PageController::class, 'showMatchHistory']);

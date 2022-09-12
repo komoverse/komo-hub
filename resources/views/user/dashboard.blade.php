@@ -56,145 +56,48 @@
     </div>
     <div class="col-12 col-md-7">
         <div class="bg-main p-3">
-            <h2>Komoverse Auto-Chess Match History (dummy)</h2>
+            <h2>Komoverse Auto-Chess Match History</h2>
             <hr>
-            <div class="history-wrapper history-p1">
+            @foreach ($autochess as $row)
+            <div class="history-wrapper history-p{{ $row->placement }}" data-matchid="{{ $row->match_id }}">
                 <div class="row">
                     <div class="col-2 col-md-1 p-0">
-                        <span class="placement">#1</span>
+                        <span class="placement">#{{ $row->placement }}</span>
                     </div>
                     <div class="col-7 col-md-9">
                         <span class="lineup">LINEUP</span>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/kuli.webp') }}" alt="" class="heroes-icon">
-                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/banshee.webp') }}" alt="" class="heroes-icon">
-                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/skeleton_king.webp') }}" alt="" class="heroes-icon">
-                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/rasputin.webp') }}" alt="" class="heroes-icon">
-                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/raven.webp') }}" alt="" class="heroes-icon">
-                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/rodan.webp') }}" alt="" class="heroes-icon">
-                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/shi_wudu.webp') }}" alt="" class="heroes-icon">
-                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/cupid.webp') }}" alt="" class="heroes-icon">
-                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/baby_dragon.webp') }}" alt="" class="heroes-icon">
-                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
-                        </div>
+                        @php
+                            $lineup = json_decode($row->lineup);
+                            for ($star=3; $star > 0; $star--):
+                                foreach ($lineup as $key => $value):
+                                    $heroes_array = explode('*', $key);
+                                    if ($heroes_array[0] == $star):
+                        @endphp
+                                <div class="lineup-icon">
+                                    <img src="{{ url('assets/img/heroes-icon/'.$heroes_array[1].'.webp') }}" alt="{{ $heroes_array[1] }} icon" class="heroes-icon" onError="this.onerror=null;this.src='{{ url('assets/img/nopic.webp') }}';" 
+        data-bs-toggle="tooltip" data-bs-placement="top"
+        data-bs-title="{{ ucwords(str_replace('_', ' ', $heroes_array[1])) }}">
+                                    <img src="{{ url('assets/img/'.$heroes_array[0].'-star.png') }}" class="star">
+                                </div>
+                        @php
+                                    endif;
+                                endforeach;
+                            endfor;
+                        @endphp
                     </div>
                     <div class="col-3 col-md-2">
                         <span class="kd_ratio">
                             W / L
                         </span>
-                            <span class="kill">30</span>
-                            <span class="death">18</span>
+                            <span class="kill">{{ $row->win }}</span>
+                            <span class="death">{{ $row->lose }}</span>
                     </div>
                 </div>
             </div>
-            <div class="history-wrapper history-p4">
-                <div class="row">
-                    <div class="col-2 col-md-1 p-0">
-                        <span class="placement">#4</span>
-                    </div>
-                    <div class="col-7 col-md-9">
-                        <span class="lineup">LINEUP</span>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/skeleton_king.webp') }}" alt="" class="heroes-icon">
-                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/biyawak.webp') }}" alt="" class="heroes-icon">
-                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
-                        </div>
-
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/lucifer.webp') }}" alt="" class="heroes-icon"> 
-                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/ogre.webp') }}" alt="" class="heroes-icon"> 
-                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/kunoichi.webp') }}" alt="" class="heroes-icon"> 
-                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/rasputin.webp') }}" alt="" class="heroes-icon"> 
-                            <img src="{{ url('assets/img/1-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/raphael.webp') }}" alt="" class="heroes-icon"> 
-                            <img src="{{ url('assets/img/1-star.png') }}" class="star">
-                        </div>
-                    </div>
-                    <div class="col-3 col-md-2">
-                        <span class="kd_ratio">
-                            W / L
-                        </span>
-                            <span class="kill">25</span>
-                            <span class="death">22</span>
-                    </div>
-                </div>
-            </div>
-            <div class="history-wrapper history-p8">
-                <div class="row">
-                    <div class="col-2 col-md-1 p-0">
-                        <span class="placement">#8</span>
-                    </div>
-                    <div class="col-7 col-md-9">
-                        <span class="lineup">LINEUP</span>
-
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/baby_dragon.webp') }}" alt="" class="heroes-icon"> 
-                            <img src="{{ url('assets/img/3-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/paladin.webp') }}" alt="" class="heroes-icon"> 
-                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/butcher.webp') }}" alt="" class="heroes-icon"> 
-                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/venom.webp') }}" alt="" class="heroes-icon"> 
-                            <img src="{{ url('assets/img/2-star.png') }}" class="star">
-                        </div>
-                        <div class="lineup-icon">
-                            <img src="{{ url('assets/img/heroes-icon/azrael.webp') }}" alt="" class="heroes-icon"> 
-                            <img src="{{ url('assets/img/1-star.png') }}" class="star">
-                        </div>
-                    </div>
-                    <div class="col-3 col-md-2">
-                        <span class="kd_ratio">
-                            W / L
-                        </span>
-                            <span class="kill">14</span>
-                            <span class="death">28</span>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+            <p class="text-end">
+                <a href="{{ url('match-history') }}" style="color:lime; text-decoration: none">Show More Match History >></a>
+            </p>
         </div>
 
         <div class="bg-main p-3 mt-5">
@@ -384,5 +287,9 @@
         var regex = /^[a-zA-Z0-9]{32,44}$/;
         return regex.test(wallet);
     }
+
+    $('.history-wrapper').on('click', function(){
+        window.location.href='{{ url('match-detail') }}/'+$(this).data('matchid');
+    });
 </script>
 @endsection

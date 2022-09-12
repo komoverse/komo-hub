@@ -90,22 +90,47 @@
             .history-wrapper {
                 margin-bottom: 10px;
                 padding-left: 20px;
+                cursor: pointer;
             }
             .history-p1 {
 background: rgb(35,255,0);
-background: linear-gradient(90deg, rgba(35,255,0,0.7959558823529411) 0%, rgba(8,170,8,0) 100%);
+background: linear-gradient(90deg, rgba(35,255,0,0.8) 0%, rgba(8,170,8,0.4) 100%);
+            }
+            .history-p2 {
+background: rgb(35,255,0);
+background: linear-gradient(90deg, rgba(35,255,0,0.6) 0%, rgba(8,170,8,0.3) 100%);
+            }
+            .history-p3 {
+background: rgb(35,255,0);
+background: linear-gradient(90deg, rgba(35,255,0,0.5) 0%, rgba(8,170,8,0.2) 100%);
             }
             .history-p4 {
-background: rgb(76,159,63);
-background: linear-gradient(90deg, rgba(76,159,63,0.7959558823529411) 0%, rgba(8,170,8,0) 100%);
+background: rgb(35,255,0);
+background: linear-gradient(90deg, rgba(35,255,0,0.3) 0%, rgba(8,170,8,0.1) 100%);
+            }
+            .history-p5 {
+background: rgb(35,255,0);
+background: linear-gradient(90deg, rgba(35,255,0,0.1) 0%, rgba(8,170,8,0.1) 100%);
+            }
+            .history-p6 {
+background: rgb(152,0,0);
+background: linear-gradient(90deg, rgba(200,0,0,0.3) 0%, rgba(200,0,0,0.2) 100%);
+            }
+            .history-p7 {
+background: rgb(152,0,0);
+background: linear-gradient(90deg, rgba(200,0,0,0.5) 0%, rgba(200,0,0,0.3) 100%);
             }
             .history-p8 {
 background: rgb(152,0,0);
-background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,170,8,0) 100%);
+background: linear-gradient(90deg, rgba(200,0,0,0.9) 0%, rgba(200,0,0,0.4) 100%);
             }
             .history-wrapper .placement {
                 font-size: 2.5rem;
                 font-weight: bold;
+            }
+            .history-wrapper .placement-lg {
+                font-weight: bold;
+                font-size: 3.5rem;
             }
             .history-wrapper .lineup,
             .history-wrapper .kd_ratio {
@@ -122,6 +147,11 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
                 font-weight: bold;
                 color: red;
             }
+            .history-wrapper .duration {
+                font-size: 1.2rem;
+                color: white;
+                font-weight: bold;
+            }
             .history-wrapper .lineup-icon {
                 display: inline-block;
                 position: relative;
@@ -136,6 +166,56 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
                 left: 3px;
                 width: auto;
                 height: 10px;
+                text-align: center;
+            }
+            .history-wrapper-sm {
+                margin-bottom: 10px;
+                padding-left: 10px;
+            }
+            .history-wrapper-sm .placement {
+                font-size: 2rem;
+                display: block;
+                font-weight: bold;
+            }
+            .history-wrapper-sm .name {
+                font-size: 1.2rem;
+                display: block;
+                font-weight: bold;
+            }
+            .history-wrapper-sm .lineup,
+            .history-wrapper-sm .kd_ratio {
+                display: block;
+                font-size: 0.8rem;
+            }
+            .history-wrapper-sm .kill {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: lime;
+            }
+            .history-wrapper-sm .death {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: red;
+            }
+            .history-wrapper-sm .duration {
+                font-size: 1.2rem;
+                color: white;
+                font-weight: bold;
+            }
+            .history-wrapper-sm .lineup-icon {
+                display: inline-block;
+                position: relative;
+                margin-bottom: 5px;
+            }
+            .history-wrapper-sm .lineup-icon img {
+                width: 31px;
+            }
+            .history-wrapper-sm .lineup-icon .star {
+                position: absolute;
+                bottom: 0;
+                left: 3px;
+                width: auto;
+                height: 8px;
                 text-align: center;
             }
             .btn-outline-success {
@@ -157,6 +237,21 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
                 margin-top: 15px;
                 margin-right: 20px;
             }
+            .synergy-wrapper {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
+            .history-wrapper .synergy-value {
+                display: flex;
+                width: 5px !important;
+                height: 5px !important;
+            }
+            .history-wrapper-sm .synergy-value {
+                display: flex;
+                width: 4px !important;
+                height: 4px !important;
+            }
         </style>
     </head>
     <body class="text-light">
@@ -177,6 +272,10 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
                             <a class="nav-link" href="{{ url('leaderboard') }}">
                                 <i class="fas fa-award"></i>
                                 Leaderboard
+                            </a>
+                            <a class="nav-link" href="{{ url('match-history') }}">
+                                <i class="fas fa-gamepad"></i>
+                                Match History
                             </a>
                             <a class="nav-link" href="{{ url('topup') }}">
                                 <i class="fas fa-donate"></i>
@@ -222,6 +321,8 @@ background: linear-gradient(90deg, rgba(152,0,0,0.9948354341736695) 0%, rgba(8,1
         @yield('script')
         <script>
             $('.datatable').DataTable();
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
         </script>
     </body>
 </html>

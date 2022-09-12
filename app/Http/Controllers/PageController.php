@@ -108,6 +108,15 @@ class PageController extends Controller
         }
         $this->refreshAccountInfo();
 
+        // Autochess History
+        $postdata = [
+            'api_key' => $this->komo_api_key,
+            'playfab_id' => Session::get('userdata')->playfab_id,
+            'limit' => 5,
+        ];
+        $url = $this->komo_endpoint.'/v1/match-history/list';
+        $autochess = $this->callAPI($url, null, $postdata);
+
         // SHARD Transaction history
         $postdata = [
             'api_key' => $this->komo_api_key,
@@ -120,6 +129,7 @@ class PageController extends Controller
         // Render data 
         $data = [
             'shard_tx' => $shard_tx,
+            'autochess' => $autochess,
         ];
         return view('user/dashboard')->with($data);
     }
@@ -809,5 +819,32 @@ class PageController extends Controller
         $cp_data = json_decode($returndata->custom_param);
         $redirect = $cp_data->result->checkout_url;
         return redirect($redirect);
+    }
+
+    function showMatchHistory() {
+        $data = [
+            'api_key' => $this->komo_api_key,
+            'playfab_id' => Session::get('userdata')->playfab_id,
+            'limit' => 50,
+        ];
+        $komo_url = $this->komo_endpoint.'/v1/match-history/list';
+        $returndata = [
+            'autochess' => $this->callAPI($komo_url, null, $data),
+        ];
+        return view('user.match-history')->with($returndata);
+    }
+
+    function showMatchDetail(Request $req) {
+        $data = [
+            'api_key' => $this->komo_api_key,
+            'match_id' => $req->match_id,
+        ];
+
+        $komo_url = $this->komo_endpoint.'/v1/match-history/detail';
+        $returndata = [
+            'match_id' => $req->match_id,
+            'autochess' => $this->callAPI($komo_url, null, $data),
+        ];
+        return view('user.match-detail')->with($returndata);
     }
 }
