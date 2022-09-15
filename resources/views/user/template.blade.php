@@ -264,34 +264,41 @@ background: linear-gradient(90deg, rgba(200,0,0,0.9) 0%, rgba(200,0,0,0.4) 100%)
                         <i class="fas fa-bars"></i>
                     </a>
                     <div class="collapse d-md-block" id="collapseExample">
-                        <nav class="nav flex-column mt-2">
+                        <nav class="nav flex-column mt-2 text-center">
                             <a class="nav-link active" aria-current="page" href="{{ url('/') }}">
                                 <i class="fas fa-chart-line"></i>
+                                <br>
                                 Dashboard
                             </a>
                             <a class="nav-link" href="{{ url('leaderboard') }}">
                                 <i class="fas fa-award"></i>
+                                <br>
                                 Leaderboard
                             </a>
                             <a class="nav-link" href="{{ url('match-history') }}">
                                 <i class="fas fa-gamepad"></i>
+                                <br>
                                 Match History
                             </a>
                             <a class="nav-link" href="{{ url('topup') }}">
                                 <i class="fas fa-donate"></i>
+                                <br>
                                 Topup Shard
                             </a>
                             <a class="nav-link" href="{{ url('withdraw') }}">
                                 <i class="fas fa-hand-holding-usd"></i>
+                                <br>
                                 Withdraw Shard
                             </a>
                             <a class="nav-link" href="{{ url('shard-tx') }}">
                                 <i class="fas fa-history"></i>
+                                <br>
                                 Shard History
                             </a>
                             {{-- <a class="nav-link" href="{{ url('redeem') }}">Redeem Shard</a> --}}
                             <a class="nav-link" href="{{ url('logout') }}">
                                 <i class="fas fa-sign-out-alt"></i>
+                                <br>
                                 Logout
                             </a>
                         </nav>
