@@ -65,3 +65,5 @@ Route::get('leaderboard/{type}/{param}', [PageController::class, 'showLeaderboar
 
 Route::get('match-detail/{match_id}', [PageController::class, 'showMatchDetail']);
 Route::get('match-history', [PageController::class, 'showMatchHistory']);
+
+Route::get('withdraw', [PageController::class, 'showWithdrawPage']);

@@ -73,7 +73,9 @@ class PageController extends Controller
         ];
         $url = $this->komo_endpoint.'/v1/account-info/username';
         $userdata = $this->callAPI($url, null, $data);
-
+        if (isset($userdata->status) && ($userdata->status == 'error')) {
+            return redirect('login')->with('error', $userdata->message);
+        }
         if ($userdata) {
             if ($userdata->password == md5($req->password.$userdata->salt)) {
                 Session::put('userdata', $userdata);
@@ -846,5 +848,19 @@ class PageController extends Controller
             'autochess' => $this->callAPI($komo_url, null, $data),
         ];
         return view('user.match-detail')->with($returndata);
+    }
+
+    function showWithdrawPage() {
+        $postdata = [
+            'api_key' => $this->komo_api_key,
+            'komo_username' => Session::get('userdata')->komo_username,
+        ];
+        $komo_url = $this->komo_endpoint.'/v1/withdraw-restrict';
+        $restriction = $this->callAPI($komo_url, null, $postdata);
+
+        $data = [
+            'restriction' => $restriction,
+        ];
+        return view('user.withdraw-shard')->with($data);
     }
 }

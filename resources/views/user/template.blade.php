@@ -281,6 +281,10 @@ background: linear-gradient(90deg, rgba(200,0,0,0.9) 0%, rgba(200,0,0,0.4) 100%)
                                 <i class="fas fa-donate"></i>
                                 Topup Shard
                             </a>
+                            <a class="nav-link" href="{{ url('withdraw') }}">
+                                <i class="fas fa-hand-holding-usd"></i>
+                                Withdraw Shard
+                            </a>
                             <a class="nav-link" href="{{ url('shard-tx') }}">
                                 <i class="fas fa-history"></i>
                                 Shard History
