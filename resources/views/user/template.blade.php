@@ -258,8 +258,10 @@ background: linear-gradient(90deg, rgba(200,0,0,0.9) 0%, rgba(200,0,0,0.4) 100%)
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 col-md-1 nav-wrapper bg-main text-light">
-                    <img src="{{ url('assets/img/favicon.webp') }}" style="width: 90px" class="mt-3 d-none d-md-block" alt="">
-                    <img src="{{ url('assets/img/favicon.webp') }}" style="height: 60px" class="my-2 d-inline-block d-md-none" alt="">
+                    <center>
+                        <img src="{{ url('assets/img/favicon.webp') }}" style="width: 90px" class="mt-3 d-none d-md-block" alt="">
+                        <img src="{{ url('assets/img/favicon.webp') }}" style="height: 60px" class="my-2 d-inline-block d-md-none" alt="">
+                    </center>
                     <a class="menu-stipes d-inline-block d-md-none flex-right" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" role="button">
                         <i class="fas fa-bars"></i>
                     </a>
