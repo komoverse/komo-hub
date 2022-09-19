@@ -315,7 +315,7 @@ background: linear-gradient(90deg, rgba(200,0,0,0.9) 0%, rgba(200,0,0,0.4) 100%)
                         @endif
                         @if (Session::get('userdata')->salt != "==DEPRECATED==")
                         <div class="alert alert-warning" role="alert">
-                            Your password using old encryption. Please consider change your password.
+                            We have upgraded our password encryption. Your password still using old encryption. Please consider to change your password for your own security.
                         </div>
                         @endif
 
