@@ -52,6 +52,11 @@
                     </button>
                     '; !!}
                 </div>
+                <br>
+
+            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#changePassModal">
+            <i class="fas fa-lock"></i> Change Password
+            </button>
         </div>
     </div>
     <div class="col-12 col-md-7">
@@ -165,6 +170,34 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="changePassModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <form action="{{ url('change-password') }}" method="POST">
+        @csrf
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Change Password</h5>
+        <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Old Password
+        <input minlength="6" type="password" name="old_password" class="form-control">
+        New Password
+        <input minlength="6" type="password" name="new_password" class="form-control">
+        Confirm New Password
+        <input minlength="6" type="password" name="confirm_password" class="form-control">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>
+        <button type="submit" id="submitPasswordButton" class="btn btn-danger"><i class="fas fa-edit"></i> Change Password</button>
+      </div>
+    </div>
+  </div>
+</form>
 </div>
 
 <!-- Modal -->

@@ -313,6 +313,11 @@ background: linear-gradient(90deg, rgba(200,0,0,0.9) 0%, rgba(200,0,0,0.4) 100%)
                             Your Email is Not Verified. Please <a href="{{ url('resend-verify-email') }}">Click Here</a> to Resend Your Verification Email.
                         </div>
                         @endif
+                        @if (Session::get('userdata')->salt != "==DEPRECATED==")
+                        <div class="alert alert-warning" role="alert">
+                            Your password using old encryption. Please consider change your password.
+                        </div>
+                        @endif
 
                         @if (session('error'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">

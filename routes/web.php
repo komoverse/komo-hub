@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,9 @@ Route::get('forgot-password', [PageController::class, 'showForgotPasswordForm'])
 Route::post('forgot-password', [PageController::class, 'submitForgotPasswordRequest']);
 Route::get('reset-password/{hash}', [PageController::class, 'showNewPasswordForm']);
 Route::post('reset-password', [PageController::class, 'submitNewPassword']);
+
+Route::post('change-password', [PageController::class, 'submitChangePassword']);
+
 Route::get('resend-verify-email', [PageController::class, 'resendVerifyEmail']);
 Route::post('verify-email', [PageController::class, 'submitVerifyEmail']);
 
@@ -67,3 +71,13 @@ Route::get('match-detail/{match_id}', [PageController::class, 'showMatchDetail']
 Route::get('match-history', [PageController::class, 'showMatchHistory']);
 
 Route::get('withdraw', [PageController::class, 'showWithdrawPage']);
+
+
+
+Route::prefix('admin')->group(function(){
+    Route::get('register', [AdminController::class, 'showAdminRegisterPage']);
+    Route::post('register', [AdminController::class, 'adminRegister']);
+    Route::get('login', [AdminController::class, 'showAdminLoginPage']);
+    Route::post('login', [AdminController::class, 'loginAdmin']);
+    Route::get('logout', [AdminController::class, 'logoutAdmin']);
+});

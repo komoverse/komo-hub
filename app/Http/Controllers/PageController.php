@@ -70,21 +70,16 @@ class PageController extends Controller
         $data = [
             'api_key' => $this->komo_api_key,
             'komo_username' => $req->username,
+            'password' => $req->password,
         ];
-        $url = $this->komo_endpoint.'/v1/account-info/username';
+        $url = $this->komo_endpoint.'/v1/web-login';
         $userdata = $this->callAPI($url, null, $data);
-        if (isset($userdata->status) && ($userdata->status == 'error')) {
-            return redirect('login')->with('error', $userdata->message);
-        }
-        if ($userdata) {
-            if ($userdata->password == md5($req->password.$userdata->salt)) {
-                Session::put('userdata', $userdata);
-                return redirect('/');
-            } else {
-                return redirect('login')->with('error', 'Wrong Password');
-            }
+
+        if ($userdata->status == 'success') {
+            Session::put('userdata', $userdata->userdata);
+            return redirect('/');
         } else {
-            return redirect('login')->with('error', 'Username Not Found');
+            return redirect('login')->with('error', $userdata->message);
         }
     }
 
@@ -659,6 +654,24 @@ class PageController extends Controller
             return redirect('login')->with('success', 'Password Successfully Changed.');
         } else {
             return redirect('login')->with('error', 'Failed to Change Password.');
+        }
+    }
+
+    function submitChangePassword(Request $req) {
+        $data = [
+            'api_key' => $this->komo_api_key,
+            'komo_username' => Session::get('userdata')->komo_username,
+            'old_password' => $req->old_password,
+            'new_password' => $req->new_password,
+        ];
+        $url = $this->komo_endpoint.'/v1/change-password';
+        $userdata = $this->callAPI($url, null, $data);
+
+        if ($userdata->status == 'success') {
+            Session::flush();
+            return redirect('login')->with('success', $userdata->message);
+        } else {
+            return redirect()->back()->with('error', $userdata->message);
         }
     }
 
