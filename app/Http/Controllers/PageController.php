@@ -619,7 +619,7 @@ class PageController extends Controller
 
         $mail_data = [
             'komo_username' => $userdata->komo_username,
-            'hash' => $userdata->password,
+            'hash' => $userdata->playfab_id,
         ];
 
         if (\Mail::send('email.reset-password', $mail_data, function ($message) use ($userdata) {
