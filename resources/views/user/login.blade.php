@@ -17,18 +17,25 @@
             {{ session('success') }}
             </div>
             @endif
+            <button class="btn form-control btn-success" onclick="phantomLogin()">Connect Wallet</button>
+            <center>
+                - or -
+            </center>
             <form action="{{ url('login') }}" method="POST">
                 @csrf
                 Username
                 <input type="text" name="username" class="form-control my-1">
                 Password
                 <input type="password" name="password" class="form-control mt-1 mb-2">
-                <button class="btn form-control btn-success"><i class="fas fa-sign-in-alt"></i> &nbsp; Login</button>
+                <div class="row">
+                    <div class="col pe-1">
+                        <button class="btn form-control btn-success"><i class="fas fa-sign-in-alt"></i> &nbsp; Login</button>
+                    </div>
+                    <div class="col ps-1">
+                        <a href="{{ url('register') }}" class="btn form-control btn-outline-success"><i class="fas fa-edit"></i> &nbsp; Register</a>
+                    </div>
+                </div>
             </form>
-            <center>
-            - or -
-            </center>
-            <a href="{{ url('register') }}" class="btn form-control btn-outline-success"><i class="fas fa-edit"></i> &nbsp; Register</a>
             <br>
             <a href="{{ url('forgot-password') }}">Lost your password?</a>
         </div>

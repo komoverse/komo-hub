@@ -318,6 +318,11 @@ background: linear-gradient(90deg, rgba(200,0,0,0.9) 0%, rgba(200,0,0,0.4) 100%)
                             We have upgraded our password encryption. Your password still using old encryption. Please consider to change your password for your own security.
                         </div>
                         @endif
+                        {{-- @if (!(Session::get('userdata')->two_fa_secret))
+                        <div class="alert alert-warning" role="alert">
+                            You are not using Two Factor Authentication. Please consider to use 2FA for your own security.
+                        </div>
+                        @endif --}}
 
                         @if (session('error'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">

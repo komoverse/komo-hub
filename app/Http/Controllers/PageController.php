@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\PageModel;
 use Session;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Http\Controllers\OTPController;
 
 class PageController extends Controller
 {
@@ -76,6 +77,12 @@ class PageController extends Controller
         $userdata = $this->callAPI($url, null, $data);
 
         if ($userdata->status == 'success') {
+            if ($userdata->userdata->two_fa_secret) {
+                Session::forget('userdata_temp');
+                Session::put('userdata_temp', $userdata->userdata);
+                return view('user.otp-challenge');
+            }
+
             Session::put('userdata', $userdata->userdata);
             return redirect('/');
         } else {
@@ -83,9 +90,45 @@ class PageController extends Controller
         }
     }
 
+    public function submitOTPChallenge(Request $req) {
+        if ((new OTPController)->validateOTP(Session::get('userdata_temp')->two_fa_secret, $req->otp_input)) {
+            Session::put('userdata', Session::get('userdata_temp'));
+            Session::forget('userdata_temp');
+            return redirect('/')->with('alert-success', 'Login Success');
+        } else {
+            $data = [
+                'error' => 'OTP Verification Failed',
+            ];
+            return view('user.otp-challenge')->with($data);
+        }
+    }
+
     public function logout() {
         Session::flush();
         return redirect('login');
+    }
+
+    public function phantomLogin(Request $req) {
+        $data = [
+            'api_key' => $this->komo_api_key,
+            'wallet_pubkey' => $req->wallet_pubkey,
+        ];
+        $url = $this->komo_endpoint.'/v1/account-info/wallet';
+        $komoresponse = $this->callAPI($url, null, $data);
+        if ($komoresponse) {
+            if ($komoresponse->two_fa_secret) {
+                Session::forget('userdata_temp');
+                Session::put('userdata_temp', $komoresponse);
+                return view('user.otp-challenge');
+            }
+
+            Session::put('userdata', $komoresponse);
+            if ($komoresponse->wallet_pubkey || $komoresponse->semi_custodial_wallet_pubkey) {
+                return redirect('/')->with('alert-success', 'Login Success');
+            }
+        } else {
+            return redirect('register')->with('wallet_pubkey', $req->wallet_pubkey);
+        }
     }
 
     public function refreshAccountInfo() {

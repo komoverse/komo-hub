@@ -299,6 +299,8 @@
                 <i id="wallet-exists" class="form-validation red" style="display: none">Wallet already used<br></i>
                 <i id="wallet-invalid" class="form-validation red" style="display: none">Invalid Wallet Address<br></i>
                 <i id="wallet-available" class="form-validation green" style="display: none">Wallet available<br></i>
+                <button class="btn btn-success" id="registerWallet">Connect Phantom Wallet</button><span id="textPhantom"> or manually copy wallet address if you're not using Phantom</span>
+                <button class="btn btn-success form-control" id="disconnectWallet" style="display: none">Disconnect Phantom Wallet</button>
 
                 <div class="g-recaptcha mt-2" data-sitekey="{{ $g_recaptcha_site_key }}"></div>
 
@@ -324,6 +326,32 @@
 @endsection
 @section('script')
 <script>
+    $('#registerWallet').on('click', function() {
+        event.preventDefault();
+        if (isPhantomInstalled) {
+            window.phantom.solana.connect();
+            // Check for Solana & Phantom
+            provider = window.solana;
+            provider.connect().then(function(value){
+                console.log(value.publicKey.toString());
+                $('input[name=wallet_pubkey]').val(value.publicKey.toString());
+                $('input[name=wallet_pubkey]').attr('readonly', 'readonly').trigger('keyup');
+                $('#registerWallet').hide();
+                $('#textPhantom').hide();
+                $('#disconnectWallet').show();
+            });
+        }
+    });
+
+    $('#disconnectWallet').on('click', function() {
+        event.preventDefault();
+        window.phantom.solana.disconnect();
+        $('input[name=wallet_pubkey]').val('').removeAttr('readonly');
+        $('#registerWallet').show();
+        $('#textPhantom').show();
+        $('#disconnectWallet').hide();
+    })
+
     const valid = [false, false, true, false];
     // var valid[0] = false;
     // var valid[1] = false;

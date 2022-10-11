@@ -21,6 +21,8 @@ Route::post('login', [PageController::class, 'login']);
 Route::get('logout', [PageController::class, 'logout']);
 Route::get('register', [PageController::class, 'showRegisterPage']);
 Route::post('register', [PageController::class, 'submitRegistration']);
+Route::post('otp', [PageController::class, 'submitOTPChallenge']);
+Route::post('phantom-login', [PageController::class, 'phantomLogin']);
 
 Route::post('change-pp', [PageController::class, 'changeProfilePicture']);
 Route::post('add-wallet', [PageController::class, 'addSolanaWallet']);
