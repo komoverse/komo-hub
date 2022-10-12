@@ -529,10 +529,10 @@ class PageController extends Controller
             if ($response->status == 'success') {
                 return redirect('login')->with('success', $response->message);
             } else {
-                return redirect()->back()->with('error', $response->message);
+                return redirect('register')->with('error', $response->message);
             }
         } else {
-            return redirect()->back()->with('error', 'Captcha Verification Failed: '.$decgoogresp->{'error-codes'}[0]);
+            return redirect('register')->with('error', 'Captcha Verification Failed: '.$decgoogresp->{'error-codes'}[0]);
         }
     }
 

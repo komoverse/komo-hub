@@ -13,7 +13,7 @@
             </div>
             @endif
             <h2>Register</h2>
-            <form action="{{ url('register') }}" method="POST">
+            <form id="registrationForm" action="{{ url('register') }}" method="POST">
                 @csrf
                 Username <span class="red">*</span>
                 <i style="font-size: 9px; display: block">6-30 characters. Accept only alphanumeric, dot (.), underscore (_)</i>
@@ -515,7 +515,7 @@
                  console.log(index+' '+val);
             });
             if (allvalid == true) {
-                $('form').submit();
+                $('#registrationForm').submit();
             } else {
                 alert('Some input are not valid');
             }
