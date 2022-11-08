@@ -1,11 +1,11 @@
 @extends('user.before-login-template')
 @section('content')
 <div class="container">
-    <div class="row my-5">
+    <div class="row mt-5">
         <div class="col"></div>
-        <div class="col-12 col-md-4 my-5 bg-dark text-light p-5">
+        <div class="col-12 col-md-8 position-relative">
             <div class="text-center">
-                <img src="{{ url('assets/img/logo.png') }}" alt="">
+                <img src="{{ url('assets/img/logo.png') }}" class="login-logo" alt="">
             </div>
             @if (session('error'))
             <div class="alert alert-danger">
@@ -17,10 +17,12 @@
             {{ session('success') }}
             </div>
             @endif
-            <button class="btn form-control btn-success" onclick="phantomLogin()">Connect Wallet</button>
-            <center>
-                - or -
-            </center>
+        </div>
+        <div class="col"></div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-12 col-md-4 p-5 bg-dark text-light left-login">
             <form action="{{ url('login') }}" method="POST">
                 @csrf
                 Username
@@ -36,8 +38,25 @@
                     </div>
                 </div>
             </form>
-            <br>
             <a href="{{ url('forgot-password') }}">Lost your password?</a>
+
+            <div class="or">
+                OR
+            </div>
+        </div>
+        <div class="col-12 col-md-4 p-5 bg-dark text-light">
+            <button class="btn mt-2 form-control btn-sso btn-phantom" onclick="phantomLogin()">
+                <i class="fas fa-wallet"></i> Connect Phantom Wallet
+            </button>
+            <a href="{{ url('auth/google') }}" class="btn mt-2 form-control btn-sso btn-google">
+                <i class="fab fa-google"></i> Login with Google
+            </a>
+            <a href="{{ url('auth/facebook') }}" class="btn mt-2 form-control btn-sso btn-facebook">
+                <i class="fab fa-facebook"></i> Login with Facebook
+            </a>
+            <a href="{{ url('auth/twitter') }}" class="btn mt-2 form-control btn-sso btn-twitter">
+                <i class="fab fa-twitter"></i> Login with Twitter
+            </a>
         </div>
         <div class="col"></div>
     </div>

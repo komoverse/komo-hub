@@ -21,6 +21,42 @@
                 color: lime;
                 text-decoration: none;
             }
+            .left-login {
+                position: relative;
+                border-right: 1px solid grey;
+            }
+            .or {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                background: grey;
+                border-radius: 50%;
+                top: 40%;
+                right: -15px;
+                text-align: center;
+                padding-top: 3px;
+            }
+            .btn-sso {
+                text-align: left;
+                color: white;
+            }
+            .btn-sso .fab,
+            .btn-sso .fas {
+                width: 30px;
+            }
+            .btn-phantom {
+                background: #5620f0;
+            }
+            .btn-facebook {
+                background: #4267b3;
+            }
+            .btn-twitter {
+                background: #08a0e9;
+            }
+            .btn-google {
+                background: #ea4335;
+            }
+
         </style>
     </head>
     <body style="background: #aaa">

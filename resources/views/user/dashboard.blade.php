@@ -141,7 +141,11 @@
         <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <input type="text" name="inputWalletPubkey" class="form-control">
+        <button class="btn form-control btn-success" id="addPhantomDashboard">Connect Phantom Wallet</button>
+        <center>
+            - or -
+        </center>
+        <input placeholder="Manually Input Wallet Public Key" type="text" name="inputWalletPubkey" class="form-control">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>
@@ -228,6 +232,23 @@
 
 @section('script')
 <script>
+    var isPhantomConnected = false;
+    const isPhantomInstalled = window.phantom?.solana?.isPhantom;
+
+    $('#addPhantomDashboard').on('click', function() {
+        event.preventDefault();
+        if (isPhantomInstalled) {
+            window.phantom.solana.connect();
+            // Check for Solana & Phantom
+            provider = window.solana;
+            provider.connect().then(function(value){
+                console.log(value.publicKey.toString());
+                $('input[name=inputWalletPubkey]').val(value.publicKey.toString());
+                $('#addSolanaWalletButton').trigger('click');
+            });
+        }
+    });
+
     $('input[name=game-display-name]').on('change paste keyup focusout', function(){
 
         var display_name = $("input[name=game-display-name]").val();
@@ -304,6 +325,7 @@
                     window.location.reload();
                 } else {
                     alert(result.message);
+                    $('input[name=inputWalletPubkey]').val('');
                 }
             });
         } else {

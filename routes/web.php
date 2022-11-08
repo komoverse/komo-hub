@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SSOController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,14 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', [PageController::class, 'showAccountDashboard']);
+Route::prefix('auth')->group(function(){
+    Route::get('google', [SSOController::class, 'redirectToGoogle']);
+    Route::get('google/callback', [SSOController::class, 'handleGoogleCallback']);
+    Route::get('facebook', [SSOController::class, 'redirectToFacebook']);
+    Route::get('facebook/callback', [SSOController::class, 'handleFacebookCallback']);
+    Route::get('twitter', [SSOController::class, 'redirectToTwitter']);
+    Route::get('twitter/callback', [SSOController::class, 'handleTwitterCallback']);
+});
 Route::get('login', [PageController::class, 'showLoginPage']);
 Route::post('login', [PageController::class, 'login']);
 Route::get('logout', [PageController::class, 'logout']);
