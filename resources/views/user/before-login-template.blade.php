@@ -81,7 +81,7 @@
             function phantomLogin() {
                 event.preventDefault();
                 if (isPhantomInstalled) {
-                    window.phantom.solana.connect();
+                    // window.phantom.solana.connect();
                     // Check for Solana & Phantom
                     provider = window.solana;
                     provider.connect().then(function(value){
