@@ -25,6 +25,7 @@
         <div class="col-12 col-md-4 p-5 bg-dark text-light left-login">
             <form action="{{ url('login') }}" method="POST">
                 @csrf
+                <h4>KOMO Account</h4>
                 Username
                 <input type="text" name="username" class="form-control my-1">
                 Password

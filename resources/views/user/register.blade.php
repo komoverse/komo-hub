@@ -15,6 +15,7 @@
             <h2>Register</h2>
             <form id="registrationForm" action="{{ url('register') }}" method="POST">
                 @csrf
+                <input type="hidden" name="avatar">
                 Username <span class="red">*</span>
                 <i style="font-size: 9px; display: block">6-30 characters. Accept only alphanumeric, dot (.), underscore (_)</i>
                 <input type="text" name="komo_username" required="required" class="form-control my-1">
@@ -325,6 +326,15 @@
 </div>
 @endsection
 @section('script')
+@if (isset($sso_data))
+<script>
+    $(document).ready(function(){
+        $('input[name=name]').val('{{ str_replace(' ', '_', $sso_data->name) }}').trigger('keyup');
+        $('input[name=email]').val('{{ $sso_data->email }}').trigger('keyup');
+        $('input[name=avatar]').val('{{ $sso_data->avatar_original }}');
+    });
+</script>
+@endif
 <script>
     $('#registerWallet').on('click', function() {
         event.preventDefault();

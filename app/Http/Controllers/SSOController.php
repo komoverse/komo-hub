@@ -79,6 +79,9 @@ class SSOController extends Controller
             Session::put('userdata', $response->userdata);
             return redirect('/');
         } else {
+            if ($response->message == 'KOMO Account Not Found') {
+                return redirect('register')->with('sso_data', $response->sso_data);
+            }
             return redirect('login')->with('error', $response->message);
         }
     }
@@ -94,6 +97,9 @@ class SSOController extends Controller
             Session::put('userdata', $response->userdata);
             return redirect('/');
         } else {
+            if ($response->message == 'KOMO Account Not Found') {
+                return redirect('register')->with('sso_data', $response->sso_data);
+            }
             return redirect('login')->with('error', $response->message);
         }
     }
@@ -109,6 +115,9 @@ class SSOController extends Controller
             Session::put('userdata', $response->userdata);
             return redirect('/');
         } else {
+            if ($response->message == 'KOMO Account Not Found') {
+                return redirect('register')->with('sso_data', $response->sso_data);
+            }
             return redirect('login')->with('error', $response->message);
         }
     }

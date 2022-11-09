@@ -45,7 +45,7 @@
                 width: 30px;
             }
             .btn-phantom {
-                background: #5620f0;
+                background: #4f32a5;
             }
             .btn-facebook {
                 background: #4267b3;

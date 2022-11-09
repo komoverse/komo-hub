@@ -489,10 +489,16 @@ class PageController extends Controller
         }
     }
 
-    function showRegisterPage() {
+    function showRegisterPage(Request $req) {
         $data = [
             'g_recaptcha_site_key' => config('api_key.g_recaptcha_site_key'),
         ];
+        if (Session::get('sso_data')) {
+            $data = [
+                'g_recaptcha_site_key' => config('api_key.g_recaptcha_site_key'),
+                'sso_data' => Session::get('sso_data'),
+            ];
+        }
         return view('user.register')->with($data);
     }
 
@@ -527,6 +533,16 @@ class PageController extends Controller
             $url = $this->komo_endpoint.'/v1/register';
             $response = $this->callAPI($url, null, $data);
             if ($response->status == 'success') {
+                if ($req->avatar) {
+                    $data = [
+                        'api_key' => $this->komo_api_key,
+                        'komo_username' => $req->komo_username,
+                        'profile_picture_url' => $req->avatar,
+                    ];
+                    $url = $this->komo_endpoint.'/v1/change-pp';
+                    $response = $this->callAPI($url, null, $data);
+                }
+
                 return redirect('login')->with('success', $response->message);
             } else {
                 return redirect('register')->with('error', $response->message);
