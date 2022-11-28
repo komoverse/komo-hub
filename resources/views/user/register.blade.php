@@ -331,7 +331,7 @@
     $(document).ready(function(){
         $('input[name=name]').val('{{ str_replace(' ', '_', $sso_data->name) }}').trigger('keyup');
         $('input[name=email]').val('{{ $sso_data->email }}').trigger('keyup');
-        $('input[name=avatar]').val('{{ $sso_data->avatar_original }}');
+        $('input[name=avatar]').val('{{ $sso_data->avatar }}');
     });
 </script>
 @endif
@@ -339,7 +339,7 @@
     $('#registerWallet').on('click', function() {
         event.preventDefault();
         if (isPhantomInstalled) {
-            window.phantom.solana.connect();
+            // window.phantom.solana.connect();
             // Check for Solana & Phantom
             provider = window.solana;
             provider.connect().then(function(value){
