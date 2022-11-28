@@ -527,7 +527,7 @@ class PageController extends Controller
                 'password' => $req->password,
                 'email' => $req->email,
                 'wallet_pubkey' => $req->wallet_pubkey,
-                'country' => $req->country,
+                'country_code' => $req->country,
                 'game_newsletter_subscribe' => $subs,
             ];
             $url = $this->komo_endpoint.'/v1/register';

@@ -9,7 +9,8 @@
             </div>
             @if (session('error'))
             <div class="alert alert-danger">
-            {{ session('error') }}
+            {{-- {{ session('error') }} --}}
+            @php var_dump(session('error')) @endphp
             </div>
             @endif
             <h2>Register</h2>
